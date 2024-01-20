@@ -18,10 +18,10 @@ export default function MyPost({ post }) {
         message: post.message,
     });
 
-    const submit = (e) => {
-        e.preventDefault();
-        patch(route('posts.update', post.id), { onSuccess: () => setEditing(false) });
-    };
+    // const submit = (e) => {
+    //     e.preventDefault();
+    //     patch(route('posts.update', post.id), { onSuccess: () => setEditing(false) });
+    // };
 
     return (
         <div className="p-6 flex space-x-2">
@@ -47,7 +47,7 @@ export default function MyPost({ post }) {
                                 </button>
                             </Dropdown.Trigger>
                             <Dropdown.Content>
-                                <Dropdown.Link as="button" href={route('my-posts.update', post.id)} method="put">
+                                <Dropdown.Link as="button" href={route('my-posts.edit', post.id)} method="get">
                                     Edit
                                 </Dropdown.Link>
                                 <Dropdown.Link as="button" href={route('my-posts.destroy', post.id)} method="delete">
@@ -58,18 +58,19 @@ export default function MyPost({ post }) {
                     }
                 </div>
 
-                {editing
-                    ? <form onSubmit={submit}>
-                        <textarea value={data.message} onChange={e => setData('message', e.target.value)}
-                                  className="mt-4 w-full text-gray-900 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
-                        <InputError message={errors.message} className="mt-2" />
-                        <div className="space-x-2">
-                            <PrimaryButton className="mt-4">Save</PrimaryButton>
-                            <button className="mt-4" onClick={() => { setEditing(false); reset(); clearErrors(); }}>Cancel</button>
-                        </div>
-                    </form>
-                    : <p className="mt-4 text-lg text-gray-900">{post.message}</p>
-                }
+                <p className="mt-4 text-lg text-gray-900">{post.message}</p>
+                {/*{editing*/}
+                {/*    ? <form onSubmit={submit}>*/}
+                {/*        <textarea value={data.message} onChange={e => setData('message', e.target.value)}*/}
+                {/*                  className="mt-4 w-full text-gray-900 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>*/}
+                {/*        <InputError message={errors.message} className="mt-2" />*/}
+                {/*        <div className="space-x-2">*/}
+                {/*            <PrimaryButton className="mt-4">Save</PrimaryButton>*/}
+                {/*            <button className="mt-4" onClick={() => { setEditing(false); reset(); clearErrors(); }}>Cancel</button>*/}
+                {/*        </div>*/}
+                {/*    </form>*/}
+                {/*    : <p className="mt-4 text-lg text-gray-900">{post.message}</p>*/}
+                {/*}*/}
             </div>
         </div>
     );

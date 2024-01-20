@@ -5,7 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import {useForm, Head} from '@inertiajs/react';
 import Post from "@/Components/Post.jsx";
 
-export default function Index({auth, posts}) {
+export default function Index({auth}) {
     const {data, setData, post, processing, reset, errors} = useForm({
         message: '',
     });

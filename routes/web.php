@@ -54,4 +54,10 @@ Route::get('/compose', function () {
 })->middleware(['auth', 'verified'])->name('compose');
 
 
+
+Route::any('/test', function (Request $request) {
+    return Inertia::render('Test/Index', ['post' => json_encode($request)]);
+})->middleware(['auth', 'verified'])->name('test');
+
+
 require __DIR__ . '/auth.php';

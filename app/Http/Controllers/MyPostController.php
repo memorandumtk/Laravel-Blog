@@ -56,9 +56,11 @@ class MyPostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Post $post)
+    public function edit(Request $request, Post $my_post)
     {
-        //
+        return Inertia::render('MyPosts/Edit', [
+            'post' => $my_post
+        ]);
     }
 
     /**
@@ -66,11 +68,17 @@ class MyPostController extends Controller
      */
     public function update(Request $request, Post $my_post)
     {
-        $userId = $request->user()->id;
-        $postId = $my_post;
-        return Inertia::render('MyPosts/Edit', [
-            'post' => json_encode($my_post)
+        $this->authorize('update', $my_post);
+        $validated = $request->validate([
+            'message' => 'required|string|max:255',
         ]);
+
+        $my_post->update($validated);
+
+        return redirect(route('my-posts.index'));
+//        return Inertia::render('Test/Index', [
+//            'post' => $my_post
+//        ]);
     }
 
     /**

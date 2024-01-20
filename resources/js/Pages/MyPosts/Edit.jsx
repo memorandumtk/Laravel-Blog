@@ -1,20 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Post from "@/Components/Post.jsx";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import {useForm, Head} from '@inertiajs/react';
 
-const Edit = ({ auth, myPost }) => {
-    console.log(myPost);
+const Edit = ({ auth, post }) => {
+    console.log(post);
+    console.log(auth);
 
-    const { data, setData, put, processing, reset, errors } = useForm({
-        message: '',
+    const { data, setData, put, patch, processing, reset, errors } = useForm({
+        message: post.message
     });
+
+    // const [ editedMessage, setEditedMessage ] = useState(post.message);
 
     const submit = (e) => {
         e.preventDefault();
-        put(route('my-posts.update'), { onSuccess: () => reset() });
+        patch(route('my-posts.update', post.id), { onSuccess: () => reset() });
     };
 
     return (
@@ -25,7 +28,6 @@ const Edit = ({ auth, myPost }) => {
                 <form onSubmit={submit}>
                     <textarea
                         value={data.message}
-                        placeholder="Content of your post here..."
                         className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         onChange={e => setData('message', e.target.value)}
                     ></textarea>

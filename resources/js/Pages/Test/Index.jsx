@@ -4,15 +4,15 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, Head } from '@inertiajs/react';
-const Index = ({myPosts}) => {
-    console.log(myPosts);
+const Index = ({auth, post}) => {
+    const requestData = (post);
+    console.log(requestData);
+    console.log(auth);
 
     return (
         <div>
             <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">
-                {myPosts.map(post =>
-                    <Post key={post.id} post={post}/>
-                )}
+                It's a test to see a props
             </div>
         </div>
     );
