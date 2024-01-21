@@ -13,7 +13,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
+    /**
+     * Make a one-many relationship to Post model.
+     * @return HasMany
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);

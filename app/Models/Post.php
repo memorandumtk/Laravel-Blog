@@ -19,4 +19,12 @@ class Post extends Model
     public function user(): BelongsTo{
         return  $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
