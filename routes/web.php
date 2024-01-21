@@ -4,9 +4,11 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\MyPostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,21 +41,27 @@ Route::middleware('auth')->group(function () {
 });
 
 
+// Post Resource.
 Route::resource('posts', PostController::class)
-    ->only(['index', 'destroy'])
+    ->only(['index', 'destroy', 'show'])
 //    ->only(['index', 'edit', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 
+// My Post Resource.
 Route::resource('my-posts', MyPostController::class)
     ->only(['index', 'edit', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+// Route for compose.
 Route::get('/compose', function () {
     return Inertia::render('Compose/Index');
 })->middleware(['auth', 'verified'])->name('compose');
 
-
+// Comment Resource.
+Route::resource('comment', CommentController::class)
+    ->only(['store'])
+    ->middleware(['auth', 'verified']);
 
 Route::any('/test', function (Request $request) {
     return Inertia::render('Test/Index', ['post' => json_encode($request)]);

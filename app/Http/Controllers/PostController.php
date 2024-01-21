@@ -49,7 +49,12 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $comments = Post::find($post->id)->comments;
+        return Inertia::render('Posts/Detail',
+            [
+                'post' => $post,
+                'comments' => $comments
+            ]);
     }
 
     /**

@@ -5,6 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { useForm, usePage } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { Link } from '@inertiajs/react'
 
 dayjs.extend(relativeTime);
 
@@ -19,12 +20,11 @@ export default function Post({ post }) {
                 <div className="flex justify-between items-center">
                     <div>
                         <span className="text-gray-800">{post.user.name}</span>
-                        {/*<small*/}
-                        {/*    className="ml-2 text-sm text-gray-600">{new Date(post.created_at).toLocaleString()}</small>*/}
                         <small className="ml-2 text-sm text-gray-600">{dayjs(post.created_at).fromNow()}</small>
                         { post.created_at !== post.updated_at && <small className="text-sm text-gray-600"> &middot; edited</small>}
                     </div>
                 </div>
+                <Link href={route('posts.show', post.id)}>This is the link to the detail of {post.id}.</Link>
                 <p className="mt-4 text-lg text-gray-900">{post.message}</p>
             </div>
         </div>
