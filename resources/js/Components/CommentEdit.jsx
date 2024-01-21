@@ -11,10 +11,8 @@ const CommentEdit = ({commentOfPost}) => {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('comment.store'), { onSuccess: () => reset() });
+        post(route('comment', commentOfPost.id), { onSuccess: () => reset() });
     };
-
-
 
     return (
             <form onSubmit={submit}>
@@ -24,8 +22,8 @@ const CommentEdit = ({commentOfPost}) => {
                         className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                         onChange={e => setData('content', e.target.value)}
                     ></textarea>
-                {/*<InputError message={errors.message} className="mt-2"/>*/}
-                <PrimaryButton className="mt-4" disabled={processing}>Comment</PrimaryButton>
+                <InputError message={errors.message} className="mt-2"/>
+                <PrimaryButton className="mt-4" disabled={processing}>Comment!!</PrimaryButton>
             </form>
     );
 };

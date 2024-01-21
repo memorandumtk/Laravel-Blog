@@ -29,21 +29,19 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-//    public function store(Request $request, Post $post)
-//    {
-//        $content = $request->post('content');
-//        return Inertia::render('Posts/Detail', [
-//            'commentOfPost' => $content
-//        ]);
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, Post $post)
     {
-        $validated = $request->validate([
+        $comment = $request->validate([
             'content' => 'required|string|max:255',
         ]);
 
-        $request->user()->posts()->create($validated);
+        $commentObj = $post->comments()->create([
+            'content' => $comment['content'],
+            'user_id' => request()->user()->id,
+        ]);
 
-        return redirect(route('posts.index'));
+        return back();
+
     }
 
     /**

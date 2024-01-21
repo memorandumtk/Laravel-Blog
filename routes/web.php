@@ -58,10 +58,13 @@ Route::get('/compose', function () {
     return Inertia::render('Compose/Index');
 })->middleware(['auth', 'verified'])->name('compose');
 
+Route::post('/posts/{post}/comments/', [CommentController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('comment');
 // Comment Resource.
-Route::resource('comment', CommentController::class)
-    ->only(['store'])
-    ->middleware(['auth', 'verified']);
+//Route::resource('comment', CommentController::class)
+//    ->only(['store'])
+//    ->middleware(['auth', 'verified']);
 
 Route::any('/test', function (Request $request) {
     return Inertia::render('Test/Index', ['post' => json_encode($request)]);
