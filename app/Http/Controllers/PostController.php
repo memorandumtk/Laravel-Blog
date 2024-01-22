@@ -16,10 +16,7 @@ class PostController extends Controller
     public function index(Request $request): Response
     {
         $userId = $request->user()->id;
-        $othersPosts = Post::with('user:id,name', 'category:id,name')
-            ->where('user_id', '<>', $userId)
-            ->latest()
-            ->get();
+        $othersPosts = Post::others($userId)->get();
         return Inertia::render('Posts/Index', [
             'posts' => $othersPosts
         ]);
@@ -30,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Posts/Create');
     }
 
     /**
@@ -39,10 +36,18 @@ class PostController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'message' => 'required|string|max:255',
+            'title' => ['required', 'string', 'max:255'],
+            'message' => ['required', 'string', 'max:516'],
+            'excerpt' => ['required', 'string', 'max:255'],
+            'category_id' => ['numeric'],
         ]);
 
-        $request->user()->posts()->create($validated);
+        $createdPost = $request->user()->posts()->create($validated);
+
+//        $createdPost->category()->create([
+//            'category_id' => 4,
+//            'name' => 'test category',
+//        ]);
 
         return redirect(route('posts.index'));
     }

@@ -5,11 +5,12 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import {useForm, Head} from '@inertiajs/react';
 import Post from "@/Components/Post.jsx";
 
-export default function Index({auth}) {
+export default function Create({auth}) {
     const {data, setData, post, processing, reset, errors} = useForm({
         title:'',
         message: '',
         excerpt: '',
+        category_id: 3,
     });
 
     const submit = (e) => {

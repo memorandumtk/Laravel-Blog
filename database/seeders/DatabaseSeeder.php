@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         foreach ($users as $user) {
             Post::factory(2)->create([
                 'user_id' => ($user['id']),
-                'category_id' => random_int(1, count($categories)+1),
+                'category_id' => random_int(1, count($categories)),
             ]);
         }
 //        foreach ($users as $user) {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -22,8 +23,33 @@ class Post extends Model
         'excerpt',
     ];
 
-    public function user(): BelongsTo{
-        return  $this->belongsTo(User::class);
+    /**
+     * @param Builder $query
+     * @return void
+     * Get posts based on 'search' value.
+     */
+    public function scopeSearch(Builder $query, string $search): void
+    {
+        $query->where('title', 'like', "%$search%")
+            ->orWhere('message', 'like', "%$search%")
+            ->orWhere('excerpt', 'like', "%$search%");
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     * Get posts with 'other users' and 'category'
+     */
+    public function scopeOthers(Builder $query, int $userId)
+    {
+       return $query->with('user:id,name', 'category')
+            ->where('user_id', '<>', $userId)
+            ->latest();
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -37,8 +63,9 @@ class Post extends Model
     /**
      * Belonging to relationship to Category.
      */
-    public function category(): BelongsTo{
-        return  $this->belongsTo(Category::class);
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 
 }

@@ -5,10 +5,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\MyPostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
+use App\Models\Post;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CategoryController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,14 +45,20 @@ Route::middleware('auth')->group(function () {
 
 // Post Resource.
 Route::resource('posts', PostController::class)
-    ->only(['index', 'destroy', 'show'])
-//    ->only(['index', 'edit', 'store', 'update', 'destroy'])
+    ->only(['index', 'create', 'show', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
+
+// Show posts based on search.
+Route::any('/find', function (Request $request) {
+    $searchString = $request->input('search');
+    $postsWithSearch = Post::search($searchString)->get();
+    ddd($postsWithSearch);
+})->name('find');
 
 
 // My Post Resource.
 Route::resource('my-posts', MyPostController::class)
-    ->only(['index', 'edit', 'store', 'update', 'destroy'])
+    ->only(['index', 'edit', 'show', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 // Route for compose.

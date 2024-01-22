@@ -7,12 +7,11 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {Link} from '@inertiajs/react'
 import Avatar from "@/Components/Avatar.jsx";
+import Category from "@/Components/CategoryTag.jsx";
 
 dayjs.extend(relativeTime);
 
 export default function Post({post}) {
-
-    console.log(post)
 
     return (
         <div className="p-6 flex space-x-2">
@@ -29,8 +28,8 @@ export default function Post({post}) {
                             <small className="text-sm text-gray-600"> &middot; edited</small>}
                     </div>
                     {
-                        post && post.category
-                            ? <Link href={'#'}>{post.category.name}</Link>
+                        post.category
+                            ? <Category post = {post} />
                             : <span>No category</span>
                     }
                 </div>
