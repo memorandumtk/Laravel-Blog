@@ -8,7 +8,7 @@ use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +58,12 @@ Route::get('/compose', function () {
     return Inertia::render('Compose/Index');
 })->middleware(['auth', 'verified'])->name('compose');
 
+// Route for Category resource.
+Route::resource('categories', CategoryController::class)
+    ->only(['index', 'show'])
+    ->middleware(['auth', 'verified']);
+
+// Route for writing comment.
 Route::post('/posts/{post}/comments/', [CommentController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('comment');

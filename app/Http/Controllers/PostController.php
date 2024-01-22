@@ -16,7 +16,10 @@ class PostController extends Controller
     public function index(Request $request): Response
     {
         $userId = $request->user()->id;
-        $othersPosts = Post::with('user:id,name')->whereNot('user_id', $userId)->latest()->get();
+        $othersPosts = Post::with('user:id,name', 'category:id,name')
+            ->where('user_id', '<>', $userId)
+            ->latest()
+            ->get();
         return Inertia::render('Posts/Index', [
             'posts' => $othersPosts
         ]);
