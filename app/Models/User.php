@@ -32,7 +32,6 @@ class User extends Authenticatable
         'blog_name',
         'email',
         'password',
-        'image_url',
     ];
 
     /**

@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('title');
             $table->text('message');
             $table->string('excerpt');
+            $table->string('image_url')->nullable();
+            $table->boolean('published')->nullable();
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }

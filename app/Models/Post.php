@@ -21,6 +21,8 @@ class Post extends Model
         'title',
         'message',
         'excerpt',
+        'published',
+        'published_at',
     ];
 
     /**

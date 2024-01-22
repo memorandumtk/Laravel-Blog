@@ -26,6 +26,9 @@ class PostFactory extends Factory
             'title' => fake()->word(),
             'message' => fake()->paragraph(),
             'excerpt' => fake()->sentence(),
+            'image_url' =>fake()->imageUrl(),
+            'published' =>true,
+            'published_at' =>now(),
         ];
 
 
@@ -34,15 +37,18 @@ class PostFactory extends Factory
     /**
      * Creating comment too.
      */
-//    public function configure()
-//    {
-//        return $this->afterCreating(function (Post $post) {
-//            Comment::factory()
-//                ->count(3)
-//                ->create([
-//                    'post_id' => $post->id,
-//                    'user_id' => $post->user_id // Assuming the post has a 'user_id' attribute
-//                ]);
-//        });
-//    }
+    public function configure()
+    {
+        return $this->afterCreating(function (Post $post) {
+            // Get all user IDs except the post's author
+            $otherUserIds = User::where('id', '<>', $post->user_id)->pluck('id');
+            Comment::factory()
+                ->count(3)
+                ->create([
+                    'post_id' => $post->id,
+                    // Select a random user ID from the list
+                    'user_id' => $otherUserIds->random(),
+                ]);
+        });
+    }
 }
