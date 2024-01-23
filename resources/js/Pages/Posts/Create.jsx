@@ -8,18 +8,21 @@ import Checkbox from "@/Components/Checkbox.jsx";
 import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 
-export default function Create({auth}) {
-    const {data, setData, post, processing, reset, errors} = useForm({
+export default function Create({auth, categories}) {
+    const {data, setData, post, processing, reset, errors, progress} = useForm({
         title: '',
         message: '',
         excerpt: '',
-        category_id: 3,
+        category_id: null,
         published: 0,
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('posts.store'), {onSuccess: () => reset()});
+        post(route('posts.store'), {
+            forceFormData: true,
+            onSuccess: () => reset()
+        });
     };
 
     return (
@@ -44,6 +47,7 @@ export default function Create({auth}) {
                             onChange={(e) => setData('title', e.target.value)}
                         />
                     </div>
+
                     <div>
                         <InputLabel htmlFor="message" value="Content of your blog"/>
                         <textarea
@@ -57,6 +61,7 @@ export default function Create({auth}) {
                         />
                         <InputError message={errors.message} className=""/>
                     </div>
+
                     <div>
                         <InputLabel htmlFor="excerpt" value="Excerptioin of your blog"/>
                         <textarea
@@ -69,7 +74,31 @@ export default function Create({auth}) {
                             onChange={e => setData('excerpt', e.target.value)}
                         ></textarea>
                     </div>
-                    <div className="flex mt-4 gap-4 justify-between px-4">
+
+                    {/*// For upload an image.*/}
+                    <div>
+                        <InputLabel htmlFor="image_url" value="Upload a image of your post"/>
+                        <input type="file" onChange={e => setData('image_url', e.target.files[0])}/>
+                        {progress && (
+                            <progress value={progress.percentage} max="100">
+                                {progress.percentage}%
+                            </progress>
+                        )}
+                    </div>
+
+                    <div className="flex mt-4 gap-4 justify-between px-4 items-center">
+                        <div>
+                            <InputLabel htmlFor="category" value="Select Category"/>
+                            <select name="category" id="category"
+                                    onChange={e => setData('category_id', e.target.value)}>
+                                <option value="">--Select a category--</option>
+                                {
+                                    categories.map(category => {
+                                        return <option key={category.id} value={category.id}>{category.name}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
                         <label className="flex items-center">
                             <Checkbox
                                 name="published"
@@ -78,10 +107,13 @@ export default function Create({auth}) {
                             />
                             <span className="ms-2 text-sm text-gray-600">Would you like to post this?</span>
                         </label>
-                        <PrimaryButton className="bg-indigo-900" disabled={processing}>
-                            {data.published ? 'Post' : 'Save as Draft'}
-                        </PrimaryButton>
+                        <div>
+                            <PrimaryButton className="bg-indigo-900" disabled={processing}>
+                                {data.published ? 'Post' : 'Save as Draft'}
+                            </PrimaryButton>
+                        </div>
                     </div>
+
                 </form>
             </div>
         </AuthenticatedLayout>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -27,7 +28,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Posts/Create');
+        $categories = Category::all();
+        return Inertia::render('Posts/Create', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -39,16 +43,23 @@ class PostController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:516'],
             'excerpt' => ['required', 'string', 'max:255'],
-            'category_id' => ['numeric'],
+            'category_id' => ['required', 'exists:categories,id'],
             'published' => ['boolean'],
+            'image_url' => 'sometimes|file|image|max:10240', // 10MB Max
         ]);
+        if ($request->hasFile('image_url')) {
+            $imagePath = $request->file('image_url')->store('uploads', 'public');
+            $validated['image_url'] = $imagePath;
+        }
         // Check if the post is marked as published and add the current timestamp
         if ($request->input('published')) {
             $validated['published_at'] = now();
         }
 
         $createdPost = $request->user()->posts()->create($validated);
-        return redirect(route('posts.index'));
+        return back();
+        // Commnent out for test.
+//        return redirect(route('posts.index'));
     }
 
     /**

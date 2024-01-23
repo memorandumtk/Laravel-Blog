@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\MyPostController;
 use App\Http\Controllers\ProfileController;
@@ -55,6 +56,11 @@ Route::any('/find', function (Request $request) {
     ddd($postsWithSearch);
 })->name('find');
 
+// Image Resource.
+Route::resource('image',ImageController::class)
+    ->only(['index', 'create', 'show', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
 
 // My Post Resource.
 Route::resource('my-posts', MyPostController::class)
@@ -62,9 +68,9 @@ Route::resource('my-posts', MyPostController::class)
     ->middleware(['auth', 'verified']);
 
 // Route for compose.
-Route::get('/compose', function () {
-    return Inertia::render('Compose/Index');
-})->middleware(['auth', 'verified'])->name('compose');
+//Route::get('/compose', function () {
+//    return Inertia::render('Compose/Index');
+//})->middleware(['auth', 'verified'])->name('compose');
 
 // Route for Category resource.
 Route::resource('categories', CategoryController::class)
