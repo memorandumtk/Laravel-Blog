@@ -40,15 +40,14 @@ class PostController extends Controller
             'message' => ['required', 'string', 'max:516'],
             'excerpt' => ['required', 'string', 'max:255'],
             'category_id' => ['numeric'],
+            'published' => ['boolean'],
         ]);
+        // Check if the post is marked as published and add the current timestamp
+        if ($request->input('published')) {
+            $validated['published_at'] = now();
+        }
 
         $createdPost = $request->user()->posts()->create($validated);
-
-//        $createdPost->category()->create([
-//            'category_id' => 4,
-//            'name' => 'test category',
-//        ]);
-
         return redirect(route('posts.index'));
     }
 

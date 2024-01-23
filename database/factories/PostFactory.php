@@ -23,9 +23,9 @@ class PostFactory extends Factory
         return [
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
-            'title' => fake()->word(),
+            'title' => fake()->sentence(),
             'message' => fake()->paragraph(),
-            'excerpt' => fake()->sentence(),
+            'excerpt' => fake()->realText(),
             'image_url' =>fake()->imageUrl(),
             'published' =>true,
             'published_at' =>now(),
