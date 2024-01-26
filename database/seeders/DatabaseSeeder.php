@@ -34,17 +34,4 @@ class DatabaseSeeder extends Seeder
             ]);
         }
     }
-//        foreach ($users as $user) {
-//            $posts = \App\Models\Post::factory(3)
-//                ->create([
-//                    'user_id' => $user['id'],
-//                    'category_id' => rand(1, count($categories)),
-//                ]);
-//
-//            \App\Models\Comment::factory(2)
-//                ->create([
-//                    'post_id' => rand($posts[0]['id'], $posts[count($posts)-1]['id']),
-//                    'user_id' => rand($users[0]['id'], $users[count($users)-1]['id']),
-//                ]);
-//        }
 }

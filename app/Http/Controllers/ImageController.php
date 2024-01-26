@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Services\ImageService;
 
 class ImageController extends Controller
 {
@@ -31,21 +32,20 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => ['required'],
-            'file' => ['required'],
+        $file = $request->file('imageData');
+        $name = $file->getClientOriginalName(); // Generate a unique, random name...
+        $extension = $file->extension(); // Determine the file's extension based on the file's MIME type...
+        $storedName = time().'.'.$extension;
+        $path = $file->storeAs('images', $storedName);
+        $createdImage = Image::create([
+            'title' => $name,
+            'name' => $storedName,
+            'path' => $path,
         ]);
 
-        $fileName = time().'.'.$request->file->extension();
-        $request->file->move(public_path('storage'), $fileName);
-
-//        $createdImage = $request->user()->create($validated);
-        Image::create([
-            'title' => $request->title,
-            'name' => $fileName
-        ]);
-
-        return back();
+//        return Inertia::render('Posts/Create', [
+//            'createdImage' => $createdImage,
+//        ]);
     }
 
     /**

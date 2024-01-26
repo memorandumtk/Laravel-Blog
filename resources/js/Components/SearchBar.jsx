@@ -20,7 +20,7 @@ const SearchBar = () => {
     }
 
     return (
-        <form className="flex items-center" onSubmit={handleSubmit}>
+        <form className="flex items-center h-full" onSubmit={handleSubmit}>
             <input
                 id={'searchInput'}
                 type="text"
@@ -28,14 +28,14 @@ const SearchBar = () => {
                 onChange={handleInputChange}
                 placeholder="Enter some..."
                 className={
-                    'p-2 border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm'
+                    'h-full p-2 border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm'
                 }/>
             <button
                 type='submit'
                 className={
-                    `inline-flex items-center p-2 bg-white border border-gray-300 rounded-md text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150`
+                    `h-full inline-flex items-center p-2 bg-white border border-gray-300 rounded-md text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150`
                 }>
-                <IconContext.Provider value={{color: "gray", className: "global-class-name", size: "1.5rem"}}>
+                <IconContext.Provider value={{color: "gray", className: "global-class-name"}}>
                     <div>
                         <FaMagnifyingGlass/>
                     </div>

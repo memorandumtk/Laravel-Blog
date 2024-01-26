@@ -34,9 +34,6 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('posts.create')} active={route().current('posts.create')}>
                                     Compose
                                 </NavLink>
-                                <NavLink href={route('image.index')} active={route().current('categories.index')}>
-                                    Image
-                                </NavLink>
                                 <NavLink href={route('categories.index')} active={route().current('categories.index')}>
                                     Categories
                                 </NavLink>

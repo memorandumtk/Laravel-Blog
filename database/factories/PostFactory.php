@@ -26,7 +26,6 @@ class PostFactory extends Factory
             'title' => fake()->sentence(),
             'message' => fake()->paragraph(),
             'excerpt' => fake()->realText(),
-            'image_url' =>fake()->imageUrl(),
             'published' =>true,
             'published_at' =>now(),
         ];

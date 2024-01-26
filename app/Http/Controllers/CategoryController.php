@@ -43,7 +43,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-//        $categoryWithPosts = $category->load('posts'); // Maybe don't need though leave it in the just case.
         $categorizedPosts = Post::with(['category', 'user'])
             ->where('category_id', '=', $category->id)
             ->get();

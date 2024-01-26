@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\Inertia;
@@ -11,6 +12,17 @@ use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
+
+    /**
+     * Create ImageService so that I can leverage the function to store an image.
+     */
+    protected $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -18,7 +30,7 @@ class PostController extends Controller
     {
         $userId = $request->user()->id;
         $othersPosts = Post::others($userId)->get();
-        return Inertia::render('Posts/Index', [
+        return Inertia::render('Posts/Home', [
             'posts' => $othersPosts
         ]);
     }
@@ -34,44 +46,48 @@ class PostController extends Controller
         ]);
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request): RedirectResponse
     {
+        ddd($request);
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:516'],
             'excerpt' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'exists:categories,id'],
             'published' => ['boolean'],
-            'image_url' => 'sometimes|file|image|max:10240', // 10MB Max
+            // Validate that an uploaded file is exactly 10 megabytes...
+            'imageData' => ['file', 'max:10240'],
         ]);
-        if ($request->hasFile('image_url')) {
-            $imagePath = $request->file('image_url')->store('uploads', 'public');
-            $validated['image_url'] = $imagePath;
-        }
+
         // Check if the post is marked as published and add the current timestamp
         if ($request->input('published')) {
             $validated['published_at'] = now();
         }
+        // Check if an image is attached, if so call 'imageService and store the image.
+        if ($request->hasFile('imageData')) {
+            $file = $request->file('imageData');
+            $createdImage = $this->imageService->storeImage($file);
+            $validated['image_id'] = $createdImage->id;
+        }
 
         $createdPost = $request->user()->posts()->create($validated);
-        return back();
-        // Commnent out for test.
-//        return redirect(route('posts.index'));
+        return redirect(route('posts.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $post, Request $request)
     {
-        $comments = Post::find($post->id)->comments;
+        $userId = $request->user()->id;
+        $specificPost = Post::specificPost($post->id)->first();
         return Inertia::render('Posts/Detail',
             [
-                'post' => $post,
-                'comments' => $comments
+                'post' => $specificPost,
             ]);
     }
 

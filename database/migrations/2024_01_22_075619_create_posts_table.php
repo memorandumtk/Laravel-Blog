@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('image_id')->nullable()->constrained()->noActionOnUpdate();
             $table->string('title');
             $table->text('message');
             $table->string('excerpt');
-            $table->string('image_url')->nullable();
             $table->boolean('published')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

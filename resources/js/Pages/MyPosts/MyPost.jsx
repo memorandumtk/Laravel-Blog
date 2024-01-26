@@ -13,7 +13,16 @@ import {AiOutlineHeart, AiOutlineLike, AiOutlineStar} from "react-icons/ai";
 
 dayjs.extend(relativeTime);
 
-export default function Post({post}) {
+export default function MyPost({post}) {
+
+    const {auth} = usePage().props;
+
+    const [editing, setEditing] = useState(false);
+
+    const {data, setData, patch, clearErrors, reset, errors} = useForm({
+        message: post.message,
+    });
+
 
     return (
 
@@ -21,7 +30,7 @@ export default function Post({post}) {
                  className="border-l-4 border-t-2 p-4 flex max-w-xl flex-col gap-4 items-start justify-between">
 
             {/*Title section*/}
-            <div className="flex items-center gap-x-2 text-xs">
+            <div className="flex gap-x-2 items-center text-xs w-full">
                 {
                     post.category && <Category post={post}/>
                 }
@@ -29,11 +38,6 @@ export default function Post({post}) {
                {
                    post.likes_count > 0 && post.likes_count
                }
-                    {
-                        post.liked_by_user
-                            ? <AiOutlineHeart/>
-                            : <AiOutlineLike/>
-                    }
                 </span>
                 {
                     post.created_at !== post.updated_at &&
@@ -42,30 +46,44 @@ export default function Post({post}) {
                 <time dateTime={post.updated_at} className="text-gray-500">
                     {dayjs(post.updated_at).format('YYYY-MM-DD')}
                 </time>
+
+                {/*Dropdown menu to edit and delete*/}
+                {/*{post.user.id === auth.user.id &&*/}
+                <div className="flex-1 flex justify-end pr-4 items-center">
+                    <Dropdown>
+                        <Dropdown.Trigger>
+                            <button>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400"
+                                     viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                </svg>
+                            </button>
+                        </Dropdown.Trigger>
+                        <Dropdown.Content>
+                            <Dropdown.Link as="button" href={route('my-posts.edit', post.id)} method="get">
+                                Edit
+                            </Dropdown.Link>
+                            <Dropdown.Link as="button" href={route('my-posts.destroy', post.id)} method="delete">
+                                Delete
+                            </Dropdown.Link>
+                        </Dropdown.Content>
+                    </Dropdown>
+                </div>
+                {/*}*/}
             </div>
 
             {/*Blog content section*/}
             <div className="group relative">
-                <Link className={"mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-400"}
+                <Link className={"mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"}
                       href={route('posts.show', post.id)}>{post.title}
                     <div className="pt-4 grid grid-cols-4 justify-center items-center gap-x-4">
-                        <BlogImage className="col-span-1"/>
+                        <BlogImage image={post.image} className="col-span-1"/>
                         <p className="col-span-3 line-clamp-3 text-sm leading-6 text-gray-600">{post.excerpt}</p>
                     </div>
                 </Link>
             </div>
 
-            {/*User section*/}
-            <div className="relative flex items-center gap-x-4">
-                <Avatar post={post}/>
-                <div className="text-sm leading-6">
-                    <p className="font-semibold text-gray-900">
-                        <span className="absolute inset-0"/>
-                        {post.user.blog_name}
-                    </p>
-                    <p className="text-gray-600">{post.user.name}</p>
-                </div>
-            </div>
         </article>
 
     );

@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\MyPostController;
 use App\Http\Controllers\ProfileController;
@@ -34,7 +35,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Posts/Home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -43,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Routes for likes request.
+Route::post('/posts/{post}/like', [LikeController::class, 'likePost']);
+Route::post('/posts/{post}/unlike', [LikeController::class, 'unlikePost']);
 
 // Post Resource.
 Route::resource('posts', PostController::class)
@@ -57,7 +61,7 @@ Route::any('/find', function (Request $request) {
 })->name('find');
 
 // Image Resource.
-Route::resource('image',ImageController::class)
+Route::resource('image', ImageController::class)
     ->only(['index', 'create', 'show', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
@@ -69,7 +73,7 @@ Route::resource('my-posts', MyPostController::class)
 
 // Route for compose.
 //Route::get('/compose', function () {
-//    return Inertia::render('Compose/Index');
+//    return Inertia::render('ComposeNolonger/Index_org');
 //})->middleware(['auth', 'verified'])->name('compose');
 
 // Route for Category resource.
@@ -87,7 +91,12 @@ Route::post('/posts/{post}/comments/', [CommentController::class, 'store'])
 //    ->middleware(['auth', 'verified']);
 
 Route::any('/test', function (Request $request) {
-    return Inertia::render('Test/Index', ['post' => json_encode($request)]);
+    $post = Post::find(1)
+        ->with('user','image','comments','category', 'likes')
+        ->where('id',1)->get();
+    return Inertia::render('Test/Index_org', [
+        'post' => $post
+    ]);
 })->middleware(['auth', 'verified'])->name('test');
 
 
