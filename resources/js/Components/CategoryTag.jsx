@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from "@inertiajs/react";
 
-const CategoryTag = ({post}) => {
+const CategoryTag = ({post=null, categoryProp = null}) => {
 
-    const category = post.category;
+    const category = post ? post.category : categoryProp;
     const color = category.color ? category.color : 'white'
     // Ref: https://tailwindcss.com/docs/content-configuration#dynamic-class-names
     const colorVariants = {

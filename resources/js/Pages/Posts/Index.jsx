@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Head} from "@inertiajs/react";
 import Header from "@/Components/Header.jsx";
 import SearchBar from "@/Components/SearchBar.jsx";
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Post from "@/Components/Post.jsx";
+import Modal from "@/Components/Modal.jsx";
+import DangerButton from "@/Components/DangerButton.jsx";
+import CategoryTag from "@/Components/CategoryTag.jsx";
+import {FaArrowRight} from "react-icons/fa";
+import CategoryModal from "@/Components/CategoryModal.jsx";
 
-const Index = ({auth, posts}) => {
-
+const Index = ({auth, posts, categories}) => {
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -17,8 +21,13 @@ const Index = ({auth, posts}) => {
             <Header title={"All Posts"}
                     subtitle={"You can see any posts whatever you want."}
             >
-                <div className="h-8 overflow-hidden">
-                    <SearchBar/>
+                <div className="flex flex-col gap-2">
+                    <div className="h-8 overflow-hidden">
+                        <SearchBar/>
+                    </div>
+                    <div className="self-end">
+                        <CategoryModal categories={categories} />
+                    </div>
                 </div>
             </Header>
 

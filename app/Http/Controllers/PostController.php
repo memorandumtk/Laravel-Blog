@@ -39,8 +39,12 @@ class PostController extends Controller
         } else {
             $othersPosts = Post::others($userId)->get();
         }
+
+        $categories = Category::all();
+
         return Inertia::render('Posts/Index', [
-            'posts' => $othersPosts
+            'posts' => $othersPosts,
+            'categories' => $categories,
         ]);
     }
 

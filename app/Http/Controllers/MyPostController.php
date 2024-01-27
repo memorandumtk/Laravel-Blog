@@ -39,8 +39,11 @@ class MyPostController extends Controller
             $myPosts = Post::mine($userId)->get();
         }
 
+        $categories = Category::all();
+
         return Inertia::render('MyPosts/Index', [
-            'posts' => $myPosts
+            'posts' => $myPosts,
+            'categories' => $categories,
         ]);
     }
 
