@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Avatar = ({post}) => {
-    const name = post.user.name;
+const Avatar = ({name}) => {
 
     return (
         <>

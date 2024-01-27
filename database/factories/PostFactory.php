@@ -26,8 +26,8 @@ class PostFactory extends Factory
             'title' => fake()->sentence(),
             'message' => fake()->paragraph(20),
             'excerpt' => fake()->realText(),
-            'published' =>true,
-            'published_at' =>now(),
+            'published' => true,
+            'published_at' => now(),
         ];
 
 
@@ -41,13 +41,15 @@ class PostFactory extends Factory
         return $this->afterCreating(function (Post $post) {
             // Get all user IDs except the post's author
             $otherUserIds = User::where('id', '<>', $post->user_id)->pluck('id');
-            Comment::factory()
-                ->count(3)
-                ->create([
-                    'post_id' => $post->id,
-                    // Select a random user ID from the list
-                    'user_id' => $otherUserIds->random(),
-                ]);
+            for ($i = 0; $i < 3; $i++) {
+                Comment::factory()
+                    ->count(1)
+                    ->create([
+                        'post_id' => $post->id,
+                        // Select a random user ID from the $otherUserIds.
+                        'user_id' => random_int(1, count($otherUserIds)),
+                    ]);
+            };
         });
     }
 }

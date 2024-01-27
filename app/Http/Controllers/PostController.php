@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class PostController extends Controller
         } else {
             $othersPosts = Post::others($userId)->get();
         }
-        return Inertia::render('Posts/Home', [
+        return Inertia::render('Posts/Index', [
             'posts' => $othersPosts
         ]);
     }
@@ -92,9 +93,13 @@ class PostController extends Controller
     {
         $userId = $request->user()->id;
         $specificPost = Post::specificPost($post->id)->first();
-        return Inertia::render('Posts/Detail',
+        // needed to eager load comments because DetailOfComments component needs user info from comments prop.
+        $comments = Comment::with('user:id,name,blog_name')
+            ->where('post_id', $post->id)->get();
+        return Inertia::render('Posts/Detail/Detail',
             [
                 'post' => $specificPost,
+                'comments' => $comments,
             ]);
     }
 

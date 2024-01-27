@@ -57,7 +57,7 @@ export default function Post({post}) {
 
             {/*User section*/}
             <div className="relative flex items-center gap-x-4">
-                <Avatar post={post}/>
+                <Avatar name={post.user.blog_name}/>
                 <div className="text-sm leading-6">
                     <p className="font-semibold text-gray-900">
                         <span className="absolute inset-0"/>

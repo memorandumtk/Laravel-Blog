@@ -13,9 +13,13 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, Post $post)
     {
-        //
+        $comments = Comment::with('user:id,name,blog_name')
+            ->where('post_id', $post->id)->get();
+        return Inertia::render('Posts/Detail/DetailOfComment', [
+            'comments' => $comments,
+        ]);
     }
 
     /**

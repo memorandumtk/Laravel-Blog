@@ -1,19 +1,19 @@
 import React from 'react';
 import Post from "@/Components/Post.jsx";
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import {useForm, Head} from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.jsx';
+import InputError from '@/Components/InputError.jsx';
+import PrimaryButton from '@/Components/PrimaryButton.jsx';
+import {useForm, Head, router} from '@inertiajs/react';
 import BlogImage from "@/Components/BlogImage.jsx";
-import DetailOfComment from "@/Components/DetailOfComment.jsx";
-import DetailBackground from "@/Components/DetailBackground.jsx";
+import DetailOfComment from "@/Pages/Posts/Detail/DetailOfComment.jsx";
+import DetailBackground from "@/Pages/Posts/Detail/DetailBackground.jsx";
 import dayjs from "dayjs";
 import Category from "@/Components/CategoryTag.jsx";
 import LikeButton from "@/Components/LikeButton.jsx";
 import {AiOutlineHeart, AiOutlineLike} from "react-icons/ai";
 import CategoryTag from "@/Components/CategoryTag.jsx";
 
-const Detail = ({auth, post}) => {
+const Detail = ({auth, post, comments}) => {
 
     console.log((post))
 
@@ -70,7 +70,7 @@ const Detail = ({auth, post}) => {
                     <div
                         className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                         <div className="flex-col items-center justify-center w-full">
-                            <DetailOfComment post={post} comments={post.comments}/>
+                            <DetailOfComment post={post} comments={comments}/>
                         </div>
                     </div>
                 </div>

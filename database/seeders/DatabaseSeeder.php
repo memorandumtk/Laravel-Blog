@@ -15,10 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create 3 users.
         $users = \App\Models\User::factory(3)->create();
 
+        // Create 10 Categories.
         $categories = \App\Models\Category::factory(10)->create();
 
+        // For login convenience, Create users, kosuke and dummy.
         $kosuke = User::factory()->create([
             'name' => 'kosuke',
             'email' => 'kosuke@mail.com',
@@ -29,16 +32,28 @@ class DatabaseSeeder extends Seeder
             'email' => 'dummy@mail.com',
             'password' => 'password',
         ]);
-
         $users[] = $kosuke;
         $users[] = $dummy;
 
-        $images = Image::factory(5)->create();
+        // Delete all images in the directory of 'images'.
+        $folder_path = "storage/app/images";
+        // List of name of files inside
+        // specified folder
+        $files = glob($folder_path . '/*');
+        // Deleting all the files in the list
+        foreach ($files as $file) {
+            if (is_file($file))
+                unlink($file);
+        }
+        // Create new 10 images.
+        $images = Image::factory(10)->create();
 
 
+        // Create 3 posts per user.
+        // After creating a post, there is a operation to make comments.
         foreach ($users as $user) {
-            for ($i=0; $i<2; $i++){
-                $random = random_int(1,count($images));
+            for ($i = 0; $i < 3; $i++) {
+                $random = random_int(1, count($images));
                 Post::factory(1)->create([
                     'user_id' => ($user['id']),
                     'image_id' => Image::find($random)->id,

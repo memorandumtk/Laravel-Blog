@@ -69,9 +69,13 @@ Route::resource('categories', CategoryController::class)
     ->middleware(['auth', 'verified']);
 
 // Route for writing comment.
-Route::post('/posts/{post}/comments/', [CommentController::class, 'store'])
-    ->middleware(['auth', 'verified'])
-    ->name('comment');
+Route::controller(CommentController::class)->name('comments')->group(function () {
+//    Route::get('/posts/{post}/comments/', 'index')->name('.index');
+    Route::post('/posts/{post}/comments/', 'store')->name('.store');
+})->middleware(['auth', 'verified']);
+//Route::post('/posts/{post}/comments/', [CommentController::class, 'store'])
+//    ->middleware(['auth', 'verified'])
+//    ->name('comment');
 
 Route::any('/test', function (Request $request) {
     $post = Post::find(1)
