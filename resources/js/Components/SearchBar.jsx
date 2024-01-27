@@ -16,7 +16,7 @@ const SearchBar = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        router.post(route('find'), searchString);
+        router.get(route('posts.index') +'?search=' + searchString.search);
     }
 
     return (
@@ -26,7 +26,7 @@ const SearchBar = () => {
                 type="text"
                 value={searchString.search}
                 onChange={handleInputChange}
-                placeholder="Enter some..."
+                placeholder="Enter some words..."
                 className={
                     'h-full p-2 border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm'
                 }/>

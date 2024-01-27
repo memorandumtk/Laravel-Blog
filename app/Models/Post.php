@@ -42,18 +42,20 @@ class Post extends Model
     /**
      * @param Builder $query
      * @return Builder
-     * Get posts with 'other users' and 'category'
+     * Get posts with 'other users' and 'category', posts being displayed should have been published.
      */
     public function scopeOthers(Builder $query, int $userId)
     {
         return $query->with('user:id,name,blog_name', 'category', 'image')
             ->withCount('likes')
             ->where('user_id', '<>', $userId)
+            ->where('published', '=', true)
             ->latest();
     }
 
     /**
      * @param Builder $query
+     * @param int $userId
      * @return Builder
      * Get the user's posts with 'image' and 'category'
      */
@@ -62,6 +64,20 @@ class Post extends Model
         return $query->with('user:id,name,blog_name', 'category', 'image')
             ->withCount('likes')
             ->where('user_id', '=', $userId)
+            ->latest();
+    }
+
+    /**
+     * @param Builder $query
+     * @param int $userId
+     * @return Builder
+     * Get the user's posts based on 'draft' query string, with 'image' and 'category'
+     */
+    public function scopeDrafts(Builder $query, int $userId)
+    {
+        return $query->with('user:id,name,blog_name', 'category', 'image')
+            ->withCount('likes')
+            ->where('published', '=', false)
             ->latest();
     }
 

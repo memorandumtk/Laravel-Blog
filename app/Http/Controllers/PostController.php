@@ -29,7 +29,15 @@ class PostController extends Controller
     public function index(Request $request): Response
     {
         $userId = $request->user()->id;
-        $othersPosts = Post::others($userId)->get();
+
+        //if query string 'search' is added, look for the posts containing that stirng.
+        // otherwise, take all published posts except the request user's ones.
+        if ($request->input('search')){
+            $searchString = $request->input('search');
+            $othersPosts = Post::others($userId)->search($searchString)->get();
+        } else {
+            $othersPosts = Post::others($userId)->get();
+        }
         return Inertia::render('Posts/Home', [
             'posts' => $othersPosts
         ]);
@@ -55,7 +63,7 @@ class PostController extends Controller
         ddd($request);
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'message' => ['required', 'string', 'max:516'],
+            'message' => ['required', 'string'],
             'excerpt' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'exists:categories,id'],
             'published' => ['boolean'],

@@ -49,7 +49,7 @@ export default function Post({post}) {
                 <Link className={"mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-400"}
                       href={route('posts.show', post.id)}>{post.title}
                     <div className="pt-4 grid grid-cols-4 justify-center items-center gap-x-4">
-                        <BlogImage className="col-span-1"/>
+                        <BlogImage image={post.image} className="col-span-1"/>
                         <p className="col-span-3 line-clamp-3 text-sm leading-6 text-gray-600">{post.excerpt}</p>
                     </div>
                 </Link>

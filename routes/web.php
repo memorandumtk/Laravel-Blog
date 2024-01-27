@@ -56,7 +56,7 @@ Route::resource('posts', PostController::class)
 // Show posts based on search.
 Route::any('/find', function (Request $request) {
     $searchString = $request->input('search');
-    $postsWithSearch = Post::search($searchString)->get();
+    $postsWithSearch = Post::others($request->user()->id)->search($searchString)->get();
     ddd($postsWithSearch);
 })->name('find');
 

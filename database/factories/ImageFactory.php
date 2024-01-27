@@ -17,16 +17,15 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         $fakerFileName = $this->faker->image(
-            storage_path("app/data"),
+            storage_path("app/images"),
             800,
             600
         );
 
         return [
             'title' => $fakerFileName,
-            'url' => $this->faker->imageUrl(800,600),
             'name' => basename($fakerFileName),
-            'path' => $fakerFileName,
+            'path' => '/images/' . basename($fakerFileName),
         ];
     }
 }

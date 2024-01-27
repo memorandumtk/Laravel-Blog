@@ -39,6 +39,7 @@ const Home = ({auth, posts}) => {
                 </div>
             </Header>
 
+            {/*Posts contents*/}
             <div
                 className="mx-auto px-6 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 pt-4 sm:pt-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                 {posts.map((post) => {

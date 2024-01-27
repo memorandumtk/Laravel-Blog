@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Image;
+use App\Models\Post;
 use Illuminate\Http\UploadedFile;
 
 class ImageService
@@ -19,5 +20,15 @@ class ImageService
             'name' => $storedName,
             'path' => $path,
         ]);
+    }
+
+    public function deleteImage($image_id)
+    {
+        // Update referencing Post records to remove the image association
+        Post::where('image_id', $image_id)->update(['image_id' => null]);
+
+        // Now that no Post records reference the Image, it can be safely deleted
+        $image = Image::findOrFail($image_id);
+        return $image->delete();
     }
 }

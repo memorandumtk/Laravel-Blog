@@ -31,7 +31,14 @@ class MyPostController extends Controller
     public function index(Request $request): Response
     {
         $userId = $request->user()->id;
-        $myPosts = Post::mine($userId)->get();
+        $query = $request->query('draft');
+        // If query string 'draft' is added, search and store the posts based on the condition.
+        if($query) {
+            $myPosts = Post::drafts($userId)->get();
+        } else{
+            $myPosts = Post::mine($userId)->get();
+        }
+
         return Inertia::render('MyPosts/Index', [
             'posts' => $myPosts
         ]);
@@ -91,12 +98,10 @@ class MyPostController extends Controller
      */
     public function update(Request $request, Post $my_post)
     {
-        ddd($my_post);
-//        $requestData = $request->all()['data'];
         $this->authorize('update', $my_post);
         $validated = $request->validate([
             'data.title' => ['required', 'string', 'max:255'],
-            'data.message' => ['required', 'string', 'max:516'],
+            'data.message' => ['required', 'string'],
             'data.excerpt' => ['required', 'string', 'max:255'],
             'data.category_id' => ['required', 'exists:categories,id'],
             'data.published' => ['boolean'],
@@ -107,9 +112,9 @@ class MyPostController extends Controller
         // If request has image file, store the image.
         if ($request->hasFile('data.imageData')) {
             // If requested post has already had an image, delete the image.
-//            if ($request->image_id){
-//
-//            }
+            if ($my_post->image_id) {
+                $this->imageService->deleteImage($my_post->image_id);
+            }
             $file = $request->file('data.imageData');
             $createdImage = $this->imageService->storeImage($file);
             $validated['data']['image_id'] = $createdImage->id;

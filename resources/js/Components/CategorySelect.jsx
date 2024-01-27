@@ -20,9 +20,9 @@ const colorVariants = {
     white: 'bg-white text-black',
 }
 
-const CategorySelect = ({categories, handleCategoryChange, categoryId = 0}) => {
+const CategorySelect = ({categories, handleCategoryChange, categoryId = 1}) => {
 
-    const [selected, setSelected] = useState(categories[categoryId])
+    const [selected, setSelected] = useState(categories[categoryId-1])
 
     const handleChange = (category) => {
         setSelected(category);

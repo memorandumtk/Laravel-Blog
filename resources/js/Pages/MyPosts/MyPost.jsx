@@ -46,31 +46,37 @@ export default function MyPost({post}) {
                 <time dateTime={post.updated_at} className="text-gray-500">
                     {dayjs(post.updated_at).format('YYYY-MM-DD')}
                 </time>
+                {
+                    post.published
+                        ?<p className='bg-yellow-400 text-black rounded-full text-center py-1 px-2'>published</p>
+                        :<p className='bg-green-500 text-black rounded-full text-center py-1 px-2'>drafting</p>
+
+                }
 
                 {/*Dropdown menu to edit and delete*/}
-                {/*{post.user.id === auth.user.id &&*/}
-                <div className="flex-1 flex justify-end pr-4 items-center">
-                    <Dropdown>
-                        <Dropdown.Trigger>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400"
-                                     viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
-                                </svg>
-                            </button>
-                        </Dropdown.Trigger>
-                        <Dropdown.Content>
-                            <Dropdown.Link as="button" href={route('my-posts.edit', post.id)} method="get">
-                                Edit
-                            </Dropdown.Link>
-                            <Dropdown.Link as="button" href={route('my-posts.destroy', post.id)} method="delete">
-                                Delete
-                            </Dropdown.Link>
-                        </Dropdown.Content>
-                    </Dropdown>
-                </div>
-                {/*}*/}
+                {post.user.id === auth.user.id &&
+                    <div className="flex-1 flex justify-end pr-4 items-center">
+                        <Dropdown>
+                            <Dropdown.Trigger>
+                                <button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400"
+                                         viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                    </svg>
+                                </button>
+                            </Dropdown.Trigger>
+                            <Dropdown.Content>
+                                <Dropdown.Link as="button" href={route('my-posts.edit', post.id)} method="get">
+                                    Edit
+                                </Dropdown.Link>
+                                <Dropdown.Link as="button" href={route('my-posts.destroy', post.id)} method="delete">
+                                    Delete
+                                </Dropdown.Link>
+                            </Dropdown.Content>
+                        </Dropdown>
+                    </div>
+                }
             </div>
 
             {/*Blog content section*/}

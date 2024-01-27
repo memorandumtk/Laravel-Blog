@@ -26,17 +26,17 @@ const Edit = ({auth, editPost, categories}) => {
         published: editPost.published,
         imageData: null,
     });
-    // const [imageFile, setImageFile] = useState(null);
+
     // To display image that the user will upload.
-    const [previousImg, setPreviewImg] = useState(
-        editPost.image ? editPost.image : null
+    const [previousImgPath, setPreviewImgPath] = useState(
+        editPost.image && editPost.image.path ? editPost.image.path : null
     )
 
     // Handler for file input change
     const handleImageChange = (e) => {
         setData("imageData", e.target.files[0])
         // setImageFile(e.target.files[0]);
-        setPreviewImg(URL.createObjectURL(e.target.files[0]))
+        setPreviewImgPath(URL.createObjectURL(e.target.files[0]))
     };
 
     const handleCategoryChange = (e) => {
@@ -119,11 +119,11 @@ const Edit = ({auth, editPost, categories}) => {
                             <p className="text-sm text-gray-500 " id="file_input_help">SVG, PNG, JPG
                                 or GIF (MAX. 10M bytes).</p>
                             {
-                                previousImg
+                                previousImgPath
                                     && < img id='preview_img'
-                                            src={previousImg.path}
+                                            src={previousImgPath}
                                             className={"object-cover rounded-md"}
-                                            alt={previousImg.name}/>
+                                            alt={previousImgPath}/>
                             }
                         </div>
                     </div>

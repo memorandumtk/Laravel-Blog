@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Image;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -32,13 +33,18 @@ class DatabaseSeeder extends Seeder
         $users[] = $kosuke;
         $users[] = $dummy;
 
-        $users = \App\Models\Image::factory(3)->create();
+        $images = Image::factory(5)->create();
+
 
         foreach ($users as $user) {
-            Post::factory(2)->create([
-                'user_id' => ($user['id']),
-                'category_id' => random_int(1, count($categories)),
-            ]);
+            for ($i=0; $i<2; $i++){
+                $random = random_int(1,count($images));
+                Post::factory(1)->create([
+                    'user_id' => ($user['id']),
+                    'image_id' => Image::find($random)->id,
+                    'category_id' => random_int(1, count($categories)),
+                ]);
+            }
         }
     }
 }
