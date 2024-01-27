@@ -60,7 +60,6 @@ class PostController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        ddd($request);
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'message' => ['required', 'string'],

@@ -18,9 +18,6 @@ export default function Index({auth, posts}) {
             {/*Header*/}
             <Header title={"Posts of " + auth.user.blog_name}
                     subtitle={"You can see your posts here."}>
-                    {/*<div className="h-8 overflow-hidden">*/}
-                    {/*    <SearchBar/>*/}
-                    {/*</div>*/}
                     {
                         <div className="self-end text-sm hover:text-gray-400 py-2">
                             {

@@ -53,42 +53,25 @@ Route::resource('posts', PostController::class)
     ->only(['index', 'create', 'show', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-// Show posts based on search.
-Route::any('/find', function (Request $request) {
-    $searchString = $request->input('search');
-    $postsWithSearch = Post::others($request->user()->id)->search($searchString)->get();
-    ddd($postsWithSearch);
-})->name('find');
-
 // Image Resource.
 Route::resource('image', ImageController::class)
     ->only(['index', 'create', 'show', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
-
 
 // My Post Resource.
 Route::resource('my-posts', MyPostController::class)
     ->only(['index', 'edit', 'show', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-// Route for compose.
-//Route::get('/compose', function () {
-//    return Inertia::render('ComposeNolonger/Index_org');
-//})->middleware(['auth', 'verified'])->name('compose');
-
 // Route for Category resource.
 Route::resource('categories', CategoryController::class)
-    ->only(['index', 'show'])
+    ->only(['index', 'show', 'store'])
     ->middleware(['auth', 'verified']);
 
 // Route for writing comment.
 Route::post('/posts/{post}/comments/', [CommentController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('comment');
-// Comment Resource.
-//Route::resource('comment', CommentController::class)
-//    ->only(['store'])
-//    ->middleware(['auth', 'verified']);
 
 Route::any('/test', function (Request $request) {
     $post = Post::find(1)

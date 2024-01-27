@@ -16,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+//        $categories = Category::all();
+        $categories = Category::withCount('posts')->get();
         return Inertia::render('Categories/Index', [
             'categories' => $categories,
         ]);
@@ -35,7 +36,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $colors = ['orange', 'yellow', 'green', 'sky', 'indigo', 'pink'];
+        $color = $colors[random_int(0, 5)];
+        $validated['color'] = $color;
+
+        $createdCategory = Category::create($validated);
+        return redirect(route('categories.index'));
     }
 
     /**

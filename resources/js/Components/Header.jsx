@@ -3,7 +3,7 @@ import SearchBar from "@/Components/SearchBar.jsx";
 
 const Header = ({children, title, subtitle = null}) => {
     return (
-            <div className="border border-t bg-white shadow py-6 px-12 sm:px-24 flex items-center">
+            <div className="border border-t bg-white shadow py-6 px-12 sm:px-48 flex items-center">
                 <div className="flex-1">
                     {/*<h1 className="text-3xl font-bold tracking-tight text-gray-900 ">{title}</h1>*/}
                     <h2 className="italic text-2xl font-bold tracking-tight text-gray-900 sm:text-2xl">{title}</h2>
