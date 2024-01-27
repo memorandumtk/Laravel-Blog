@@ -23,9 +23,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'kosuke@mail.com',
             'password' => 'password',
         ]);
+        $dummy = User::factory()->create([
+            'name' => 'dummy',
+            'email' => 'dummy@mail.com',
+            'password' => 'password',
+        ]);
 
         $users[] = $kosuke;
+        $users[] = $dummy;
 
+        $users = \App\Models\Image::factory(3)->create();
 
         foreach ($users as $user) {
             Post::factory(2)->create([

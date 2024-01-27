@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import Category from "@/Components/CategoryTag.jsx";
 import LikeButton from "@/Components/LikeButton.jsx";
 import {AiOutlineHeart, AiOutlineLike} from "react-icons/ai";
+import CategoryTag from "@/Components/CategoryTag.jsx";
 
 const Detail = ({auth, post}) => {
 
@@ -32,7 +33,7 @@ const Detail = ({auth, post}) => {
                         className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                         <div className="lg:max-w-lg">
                             {
-                                post.category && <Category post={post}/>
+                                post.category && <CategoryTag post={post}/>
                             }
                             <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                                 {post.title}
@@ -54,9 +55,6 @@ const Detail = ({auth, post}) => {
                             </div>
 
                             <p className="mt-6 leading-8 text-gray-700">
-                                {post.message}
-                                {post.message}
-                                {post.message}
                                 {post.message}
                             </p>
                         </div>

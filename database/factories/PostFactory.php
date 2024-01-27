@@ -24,7 +24,7 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
             'title' => fake()->sentence(),
-            'message' => fake()->paragraph(),
+            'message' => fake()->paragraph(20),
             'excerpt' => fake()->realText(),
             'published' =>true,
             'published_at' =>now(),
