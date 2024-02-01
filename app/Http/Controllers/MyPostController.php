@@ -32,18 +32,25 @@ class MyPostController extends Controller
     {
         $userId = $request->user()->id;
         $query = $request->query('draft');
-        // If query string 'draft' is added, search and store the posts based on the condition.
+        // If URL query string 'draft' is added, search and store the posts based on the condition.
         if($query) {
             $myPosts = Post::drafts($userId)->get();
         } else{
             $myPosts = Post::mine($userId)->get();
+
         }
 
         $categories = Category::all();
 
+        $totalLikes = 0;
+        foreach ($myPosts as $post){
+            $totalLikes += $post->likes_count;
+        }
+
         return Inertia::render('MyPosts/Index', [
             'posts' => $myPosts,
             'categories' => $categories,
+            'totalLikes' => $totalLikes
         ]);
     }
 

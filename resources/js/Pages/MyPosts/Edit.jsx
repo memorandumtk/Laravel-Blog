@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Post from "@/Components/Post.jsx";
+import Post from "@/Pages/Posts/Post.jsx";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';

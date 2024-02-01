@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import Dropdown from '@/Components/Dropdown';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
+import Dropdown from '@/Components/Dropdown.jsx';
+import InputError from '@/Components/InputError.jsx';
+import PrimaryButton from '@/Components/PrimaryButton.jsx';
 import {useForm, usePage} from '@inertiajs/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -18,7 +18,7 @@ export default function Post({post}) {
     return (
 
         <article key={post.id}
-                 className="border-l-4 border-t-2 p-4 flex max-w-xl flex-col gap-4 items-start justify-between">
+                 className="col-span-4 lg:col-span-2 border-l-4 border-t-2 p-4 flex flex-col gap-4 items-start justify-between">
 
             {/*Title section*/}
             <div className="flex items-center gap-x-2 text-xs">

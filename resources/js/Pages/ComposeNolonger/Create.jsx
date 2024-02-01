@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.jsx';
 import InputError from '@/Components/InputError.jsx';
 import PrimaryButton from '@/Components/PrimaryButton.jsx';
 import {useForm, Head, router} from '@inertiajs/react';
-import Post from "@/Components/Post.jsx";
+import Post from "@/Pages/Posts/Post.jsx";
 import Checkbox from "@/Components/Checkbox.jsx";
 import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";

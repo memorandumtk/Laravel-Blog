@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import {Head} from "@inertiajs/react";
-import Post from "@/Components/Post.jsx";
+import Post from "@/Pages/Posts/Post.jsx";
 
 const Show = ({auth, posts}) => {
 

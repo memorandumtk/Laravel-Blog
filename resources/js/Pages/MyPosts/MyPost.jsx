@@ -10,10 +10,11 @@ import Avatar from "@/Components/Avatar.jsx";
 import Category from "@/Components/CategoryTag.jsx";
 import BlogImage from "@/Components/BlogImage.jsx";
 import {AiOutlineHeart, AiOutlineLike, AiOutlineStar} from "react-icons/ai";
+import EditDeleteButton from "@/Pages/MyPosts/EditDeleteButton.jsx";
 
 dayjs.extend(relativeTime);
 
-export default function MyPost({post}) {
+export default function MyPost({post, breakpoint}) {
 
     const {auth} = usePage().props;
 
@@ -27,7 +28,7 @@ export default function MyPost({post}) {
     return (
 
         <article key={post.id}
-                 className="border-l-4 border-t-2 p-4 flex max-w-xl flex-col gap-4 items-start justify-between">
+                 className="col-span-4 lg:col-span-2 border-l-4 border-t-2 p-4 flex flex-col gap-4 items-start justify-between">
 
             {/*Title section*/}
             <div className="flex gap-x-2 items-center text-xs w-full">
@@ -36,7 +37,7 @@ export default function MyPost({post}) {
                 }
                 <span className={"flex items-center"}>
                {
-                   post.likes_count > 0 && post.likes_count
+                   post.likes_count > 0 && `${post.likes_count} likes`
                }
                 </span>
                 {
@@ -48,34 +49,35 @@ export default function MyPost({post}) {
                 </time>
                 {
                     post.published
-                        ?<p className='bg-yellow-400 text-black rounded-full text-center py-1 px-2'>published</p>
-                        :<p className='bg-green-500 text-black rounded-full text-center py-1 px-2'>drafting</p>
+                        ? <p className='bg-yellow-400 text-black rounded-full text-center py-1 px-2'>published</p>
+                        : <p className='bg-green-500 text-black rounded-full text-center py-1 px-2'>drafting</p>
 
                 }
 
                 {/*Dropdown menu to edit and delete*/}
                 {post.user.id === auth.user.id &&
-                    <div className="flex-1 flex justify-end pr-4 items-center">
-                        <Dropdown>
-                            <Dropdown.Trigger>
-                                <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400"
-                                         viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
-                                    </svg>
-                                </button>
-                            </Dropdown.Trigger>
-                            <Dropdown.Content>
-                                <Dropdown.Link as="button" href={route('my-posts.edit', post.id)} method="get">
-                                    Edit
-                                </Dropdown.Link>
-                                <Dropdown.Link as="button" href={route('my-posts.destroy', post.id)} method="delete">
-                                    Delete
-                                </Dropdown.Link>
-                            </Dropdown.Content>
-                        </Dropdown>
-                    </div>
+                    <EditDeleteButton postId={post.id} breakpoint={breakpoint} />
+                    // <div className="flex-1 flex justify-end pr-4 items-center">
+                    //     <Dropdown>
+                    //         <Dropdown.Trigger>
+                    //             <button>
+                    //                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400"
+                    //                      viewBox="0 0 20 20" fill="currentColor">
+                    //                     <path
+                    //                         d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
+                    //                 </svg>
+                    //             </button>
+                    //         </Dropdown.Trigger>
+                    //         <Dropdown.Content>
+                    //             <Dropdown.Link as="button" href={route('my-posts.edit', post.id)} method="get">
+                    //                 Edit
+                    //             </Dropdown.Link>
+                    //             <Dropdown.Link as="button" href={route('my-posts.destroy', post.id)} method="delete">
+                    //                 Delete
+                    //             </Dropdown.Link>
+                    //         </Dropdown.Content>
+                    //     </Dropdown>
+                    // </div>
                 }
             </div>
 

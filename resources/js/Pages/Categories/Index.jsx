@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import {Head, Link} from "@inertiajs/react";
-import Post from "@/Components/Post.jsx";
+import Post from "@/Pages/Posts/Post.jsx";
 import ApplicationLogo from "@/Components/ApplicationLogo.jsx";
 import SearchBar from "@/Components/SearchBar.jsx";
 import CategoryTag from "@/Components/CategoryTag.jsx";
