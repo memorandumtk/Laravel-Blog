@@ -57,27 +57,7 @@ export default function MyPost({post, breakpoint}) {
                 {/*Dropdown menu to edit and delete*/}
                 {post.user.id === auth.user.id &&
                     <EditDeleteButton postId={post.id} breakpoint={breakpoint} />
-                    // <div className="flex-1 flex justify-end pr-4 items-center">
-                    //     <Dropdown>
-                    //         <Dropdown.Trigger>
-                    //             <button>
-                    //                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400"
-                    //                      viewBox="0 0 20 20" fill="currentColor">
-                    //                     <path
-                    //                         d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
-                    //                 </svg>
-                    //             </button>
-                    //         </Dropdown.Trigger>
-                    //         <Dropdown.Content>
-                    //             <Dropdown.Link as="button" href={route('my-posts.edit', post.id)} method="get">
-                    //                 Edit
-                    //             </Dropdown.Link>
-                    //             <Dropdown.Link as="button" href={route('my-posts.destroy', post.id)} method="delete">
-                    //                 Delete
-                    //             </Dropdown.Link>
-                    //         </Dropdown.Content>
-                    //     </Dropdown>
-                    // </div>
+
                 }
             </div>
 

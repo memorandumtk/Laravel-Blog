@@ -1,7 +1,7 @@
 import React from 'react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.jsx';
+import InputError from '@/Components/InputError.jsx';
+import PrimaryButton from '@/Components/PrimaryButton.jsx';
 import {useForm, Head} from '@inertiajs/react';
 import Post from "@/Pages/Posts/Post.jsx";
 

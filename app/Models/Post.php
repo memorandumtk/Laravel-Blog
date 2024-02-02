@@ -90,7 +90,17 @@ class Post extends Model
     {
         return $query->with('user:id,name,blog_name', 'category', 'image', 'comments')
             ->withCount('likes')
+            ->with('recentLikes')
             ->where('id', '=', $postId);
+    }
+
+    /**
+     * Get recent likes with in a week.
+     */
+    public function recentLikes()
+    {
+        return $this->hasMany(Like::class, 'post_id')
+            ->where('created_at', '>', now()->subWeek());
     }
 
     /**

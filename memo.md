@@ -327,10 +327,8 @@ public function unlikePost($postId) {
 - Tailwind UI Ref
   https://tailwindui.com/components/marketing/sections/blog-sections
 
-- Priviewing image Ref
+- Previewing image Ref
   https://tailwindflex.com/@prajwal/image-input-with-preview
-
-
 
 - How to look `nested formdata`
   -- Ref URL:
@@ -340,10 +338,35 @@ public function unlikePost($postId) {
 - How to implement a function to detect breakpoint
   https://dev.to/chilupa/usebreakpoint-react-hook-13oa
 
-
-
 - Factory reference
   Post::factory()->for($user)->has(Comment::factory()->count(5))->count(1)->create();
+
+- How to count `liked` number for my posts.
+    - First suggestion from ChatGPT.
+```text
+$weekTotalLikes = DB::table('posts')
+    ->join('likes', 'posts.id', '=', 'likes.post_id')
+    ->where('posts.user_id', $userId)
+    ->count();
+```
+    - Better way by using function.
+```text
+// in post.php (model)
+public function recentLikes()
+{
+    return $this->hasMany(Like::class, 'post_id')
+        ->where('created_at', '>', now()->subWeek());
+}
+// in controller.
+$weekTotalLikes = $myPosts->sum(function ($post) {
+    return $post->recentLikes->count();
+});
+```
+
+
+
+
+### others
 
 https://laraveldaily.com/post/laravel-belongstomany-seed-data-factories
 

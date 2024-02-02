@@ -20,7 +20,7 @@ const CategoryModal = ({categories}) => {
                 <p className="flex items-center">See Category<FaArrowRight/></p>
             </button>
             <Modal maxWidth={"xl"} show={confirmShowCategories} onClose={closeModal}>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-4 gap-4 p-8">
                     {categories.map(category => {
                         return (
                             <CategoryTag key={category.id} categoryProp={category}/>

@@ -8,17 +8,18 @@ const EditDeleteButton = ({postId, breakpoint}) => {
         <div className={"flex justify-end flex-1 gap-4 pr-4"}>
             {(breakpoint >= 3)
                 ?
-                <div className="flex gap-8" >
-                    <Link as="button" href={route('my-posts.edit', postId)} method="get">
+                <div className="flex gap-8">
+                    <Link as="button" href={route('my-posts.edit', postId)} method="get"
+                          className="underline">
                         Edit
                     </Link>
                     <Link as="button" href={route('my-posts.destroy', postId)}
-                          method="delete">
+                          method="delete" className="underline">
                         Delete
                     </Link>
                 </div>
                 :
-                <div >
+                <div>
                     <Dropdown>
                         <Dropdown.Trigger>
                             <button>

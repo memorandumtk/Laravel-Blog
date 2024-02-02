@@ -100,7 +100,7 @@ class PostController extends Controller
         // needed to eager load comments because DetailOfComments component needs user info from comments prop.
         $comments = Comment::with('user:id,name,blog_name')
             ->where('post_id', $post->id)->get();
-        return Inertia::render('Posts/Detail/Detail',
+        return Inertia::render('Detail/Detail',
             [
                 'post' => $specificPost,
                 'comments' => $comments,

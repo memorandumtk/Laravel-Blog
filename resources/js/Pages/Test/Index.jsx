@@ -5,8 +5,8 @@ import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import {useForm, Head} from '@inertiajs/react';
 import BlogImage from "@/Components/BlogImage.jsx";
-import DetailOfComment from "@/Pages/Posts/Detail/DetailOfComment.jsx";
-import DetailBackground from "@/Pages/Posts/Detail/DetailBackground.jsx";
+import DetailOfComment from "@/Pages/Detail/DetailOfComment.jsx";
+import DetailBackground from "@/Pages/Detail/DetailBackground.jsx";
 import dayjs from "dayjs";
 import Category from "@/Components/CategoryTag.jsx";
 

@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -33,24 +34,31 @@ class MyPostController extends Controller
         $userId = $request->user()->id;
         $query = $request->query('draft');
         // If URL query string 'draft' is added, search and store the posts based on the condition.
-        if($query) {
+        if ($query) {
             $myPosts = Post::drafts($userId)->get();
-        } else{
+        } else {
             $myPosts = Post::mine($userId)->get();
 
         }
 
         $categories = Category::all();
 
-        $totalLikes = 0;
-        foreach ($myPosts as $post){
-            $totalLikes += $post->likes_count;
-        }
+//        foreach ($myPosts as $post) {
+//            $totalLikes += $post->likes_count;
+//        }
+        $totalLikes = $myPosts->sum(function ($post){
+            return $post['likes_count'];
+        });
+        $weekTotalLikes = $myPosts->sum(function ($post) {
+            return $post->recentLikes->count();
+        });
+        // total likes within latest week.
 
         return Inertia::render('MyPosts/Index', [
             'posts' => $myPosts,
             'categories' => $categories,
-            'totalLikes' => $totalLikes
+            'totalLikes' => $totalLikes,
+            'weekTotalLikes' => $weekTotalLikes
         ]);
     }
 

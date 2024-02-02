@@ -21,7 +21,7 @@ const Index = ({auth, posts, categories}) => {
                     <div className="h-8 overflow-hidden">
                         <SearchBar/>
                     </div>
-                    <div className="self-end">
+                    <div className="self-end hover:text-gray-400">
                         <CategoryModal categories={categories}/>
                     </div>
                 </div>

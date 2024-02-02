@@ -9,7 +9,7 @@ import CategoryModal from "@/Components/CategoryModal.jsx";
 import useBreakpoint from "@/Hooks/BreakpointObserver.js";
 import LikesAggregation from "@/Pages/MyPosts/LikesAggregation.jsx";
 
-export default function Index({auth, posts, categories, totalLikes}) {
+export default function Index({auth, posts, categories, totalLikes, weekTotalLikes}) {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const isDraft = urlSearchParams.get('draft') === 'yes';
 
@@ -23,16 +23,16 @@ export default function Index({auth, posts, categories, totalLikes}) {
             <Header title={"Posts of " + auth.user.blog_name}
                     subtitle={"You can see your posts here."}>
                 {
-                    <div className="self-end text-sm hover:text-gray-400 py-2">
+                    <div className="self-end text-sm py-2">
                         {
                             isDraft
                                 ? <Link href={route('my-posts.index')}>
-                                    <p className="flex items-center">Back to all of your posts<FaArrowRight/></p></Link>
+                                    <p className="flex items-center hover:text-gray-400">Back to all of your posts<FaArrowRight/></p></Link>
                                 :
                                 <Link href={route('my-posts.index') + '?draft=yes'}>
-                                    <p className="flex items-center">Go to your drafts<FaArrowRight/></p></Link>
+                                    <p className="flex items-center hover:text-gray-400">Go to your drafts<FaArrowRight/></p></Link>
                         }
-                        <div className="self-end">
+                        <div className="self-end hover:text-gray-400">
                             <CategoryModal categories={categories}/>
                         </div>
                     </div>
@@ -47,7 +47,7 @@ export default function Index({auth, posts, categories, totalLikes}) {
                         return (
                             <>
                                 <FirstMyPost key={post.id} post={post} breakpoint={breakpoint}/>
-                                <LikesAggregation totalLikes={totalLikes}/>
+                                <LikesAggregation totalLikes={totalLikes} weekTotalLikes={weekTotalLikes}/>
                             </>
                             )
                     } else {
