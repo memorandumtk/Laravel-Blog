@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Category;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,19 +32,20 @@ class Post extends Model
     /**
      * @param Builder $query
      * @return void
-     * Get posts based on 'search' value.
+     * Query builder to get posts based on 'search' value by looking for it from 'title' and 'message'.
      */
     public function scopeSearch(Builder $query, string $search): void
     {
-        $query->where('title', 'like', "%$search%")
-            ->orWhere('message', 'like', "%$search%")
-            ->orWhere('excerpt', 'like', "%$search%");
+        $query->where(function ($query) use ($search) {
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('message', 'like', '%' . $search . '%');
+        });
     }
 
     /**
      * @param Builder $query
      * @return Builder
-     * Get posts with 'other users' and 'category', posts being displayed should have been published.
+     * Get others' posts with 'other users' and 'category', posts being displayed should have been published.
      */
     public function scopeOthers(Builder $query, int $userId)
     {
@@ -57,7 +59,7 @@ class Post extends Model
     /**
      * @param Builder $query
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     * Get posts with 'other users' and 'category', posts being displayed should have been published.
+     * Get others' posts with relationships as well as narrowing the result.
      */
     public function scopeOthersWithPagination(Builder $query, int $userId)
     {
@@ -66,14 +68,30 @@ class Post extends Model
             ->where('user_id', '<>', $userId)
             ->where('published', '=', true)
             ->latest()
-            ->paginate(10);
+            ->paginate(9);
+    }
+
+    /**
+     * @param Builder $query
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * Get others' posts with relationships and searching by query string..
+     */
+    public function scopeOthersWithQueryWithPagination(Builder $query, int $userId, string $queryString)
+    {
+        return $query->with('user:id,name,blog_name', 'category', 'image')
+            ->withCount('likes')
+            ->search($queryString)
+            ->where('user_id', '<>', $userId)
+            ->where('published', '=', true)
+            ->latest()
+            ->paginate(9);
     }
 
     /**
      * @param Builder $query
      * @param int $userId
      * @return Builder
-     * Get the user's posts with 'image' and 'category'
+     * Get my posts with 'image' and 'category'
      */
     public function scopeMine(Builder $query, int $userId)
     {
@@ -86,15 +104,44 @@ class Post extends Model
     /**
      * @param Builder $query
      * @param int $userId
-     * @return Builder
-     * Get the user's posts based on 'draft' query string, with 'image' and 'category'
+     * @param string $queryString
+     * @return LengthAwarePaginator
+     * Get my posts with relationships and searching by query string.
+     */
+    public function scopeMineWithPagination(Builder $query, int $userId, string $queryString = null)
+    {
+        if ($queryString) {
+            return $query->with('user:id,name,blog_name', 'category', 'image')
+                ->withCount('likes')
+                ->search($queryString)
+                ->where('user_id', '=', $userId)
+                ->where('published', '=', true)
+                ->latest()
+                ->paginate(9);
+        } else {
+            return $query->with('user:id,name,blog_name', 'category', 'image')
+                ->withCount('likes')
+                ->where('user_id', '=', $userId)
+                ->where('published', '=', true)
+                ->latest()
+                ->paginate(9);
+        }
+    }
+
+    /**
+     * @param Builder $query
+     * @param int $userId
+     * @return LengthAwarePaginator
+     * Get my posts based on 'draft' query string, with 'image' and 'category'
      */
     public function scopeDrafts(Builder $query, int $userId)
     {
         return $query->with('user:id,name,blog_name', 'category', 'image')
             ->withCount('likes')
+            ->where('user_id', '=', $userId)
             ->where('published', '=', false)
-            ->latest();
+            ->latest()
+            ->paginate(9);
     }
 
     /**

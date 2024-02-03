@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
          */
         // After creating a post, there is a operation to make comments.
         foreach ($users as $user) {
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 5; $i++) {
                 $random = random_int(1, count($images));
                 Post::factory(1)->create([
                     'user_id' => ($user['id']),

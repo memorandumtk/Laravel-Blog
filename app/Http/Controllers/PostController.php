@@ -31,22 +31,23 @@ class PostController extends Controller
     {
         $userId = $request->user()->id;
 
-        //if query string 'search' is added, look for the posts containing that stirng.
+        // if query string 'search' is added, look for the posts containing that stirng.
         // otherwise, take all published posts except the request user's ones.
         if ($request->input('search')){
             $searchString = $request->input('search');
-            $othersPosts = Post::others($userId)->search($searchString)->get();
+            //$othersPosts = Post::others($userId)->search($searchString)->get();
+            $postsWithPagination = Post::othersWithQueryWithPagination($userId, $searchString);
         } else {
-            $othersPosts = Post::others($userId)->get();
-            $pagination = Post::othersWithPagination($userId);
+            // $othersPosts = Post::others($userId)->get();
+            $postsWithPagination = Post::othersWithPagination($userId);
         }
 
         $categories = Category::all();
 
         return Inertia::render('Posts/Index', [
-            'posts' => $othersPosts,
+            // 'posts' => $othersPosts,
             'categories' => $categories,
-            'postsWithPagination' => $pagination
+            'postsWithPagination' => $postsWithPagination,
         ]);
     }
 

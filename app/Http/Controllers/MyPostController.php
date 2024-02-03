@@ -32,13 +32,13 @@ class MyPostController extends Controller
     public function index(Request $request): Response
     {
         $userId = $request->user()->id;
-        $query = $request->query('draft');
+        $isDraft = $request->query('draft');
+        $queryString = $request->input('search') ? $request->input('search') : null;
         // If URL query string 'draft' is added, search and store the posts based on the condition.
-        if ($query) {
+        if ($isDraft) {
             $myPosts = Post::drafts($userId)->get();
         } else {
-            $myPosts = Post::mine($userId)->get();
-
+            $myPosts = Post::mineWithPagination($userId, $queryString);
         }
 
         $categories = Category::all();
