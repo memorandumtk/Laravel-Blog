@@ -38,6 +38,7 @@ class PostController extends Controller
             $othersPosts = Post::others($userId)->search($searchString)->get();
         } else {
             $othersPosts = Post::others($userId)->get();
+            $pagination = Post::othersWithPagination($userId);
         }
 
         $categories = Category::all();
@@ -45,6 +46,7 @@ class PostController extends Controller
         return Inertia::render('Posts/Index', [
             'posts' => $othersPosts,
             'categories' => $categories,
+            'postsWithPagination' => $pagination
         ]);
     }
 

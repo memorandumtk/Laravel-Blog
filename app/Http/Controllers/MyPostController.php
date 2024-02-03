@@ -43,16 +43,14 @@ class MyPostController extends Controller
 
         $categories = Category::all();
 
-//        foreach ($myPosts as $post) {
-//            $totalLikes += $post->likes_count;
-//        }
+        // Get total liked count.
         $totalLikes = $myPosts->sum(function ($post){
             return $post['likes_count'];
         });
+        // total likes within latest week.
         $weekTotalLikes = $myPosts->sum(function ($post) {
             return $post->recentLikes->count();
         });
-        // total likes within latest week.
 
         return Inertia::render('MyPosts/Index', [
             'posts' => $myPosts,

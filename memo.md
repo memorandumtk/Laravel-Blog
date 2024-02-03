@@ -363,7 +363,16 @@ $weekTotalLikes = $myPosts->sum(function ($post) {
 });
 ```
 
-
+- How to parse html string
+  - since I set some paragraphs at each post's message on factory, then I tried to separate the paragraphs by <br> tag.
+  - In that case I need to parse the message string.
+Ref:https://dev.to/kalush89/how-to-parse-html-string-in-react-53fh
+```text
+// install "html-react-parser"
+import parse from "html-react-parser";
+// just need covered by parse.
+{parse(post.message)}
+```
 
 
 ### others

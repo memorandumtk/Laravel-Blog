@@ -6,6 +6,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Post from "@/Pages/Posts/Post.jsx";
 import FirstPost from "@/Pages/Posts/FirstPost.jsx";
 import CategoryModal from "@/Components/CategoryModal.jsx";
+import BackGround from "@/Components/BackGround.jsx";
 
 const Index = ({auth, posts, categories}) => {
 

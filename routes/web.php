@@ -26,7 +26,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Landing', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -53,14 +53,14 @@ Route::resource('posts', PostController::class)
     ->only(['index', 'create', 'show', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
-// Image Resource.
-Route::resource('image', ImageController::class)
-    ->only(['index', 'create', 'show', 'store', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
-
 // My Post Resource.
 Route::resource('my-posts', MyPostController::class)
-    ->only(['index', 'edit', 'show', 'store', 'update', 'destroy'])
+    ->only(['index', 'edit', 'store', 'update', 'destroy'])
+    ->middleware(['auth', 'verified']);
+
+// Image Resource.
+Route::resource('image', ImageController::class)
+    ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
 
 // Route for Category resource.
@@ -70,21 +70,8 @@ Route::resource('categories', CategoryController::class)
 
 // Route for writing comment.
 Route::controller(CommentController::class)->name('comments')->group(function () {
-//    Route::get('/posts/{post}/comments/', 'index')->name('.index');
     Route::post('/posts/{post}/comments/', 'store')->name('.store');
 })->middleware(['auth', 'verified']);
-//Route::post('/posts/{post}/comments/', [CommentController::class, 'store'])
-//    ->middleware(['auth', 'verified'])
-//    ->name('comment');
-
-Route::any('/test', function (Request $request) {
-    $post = Post::find(1)
-        ->with('user','image','comments','category', 'likes')
-        ->where('id',1)->get();
-    return Inertia::render('Test/Index_org', [
-        'post' => $post
-    ]);
-})->middleware(['auth', 'verified'])->name('test');
 
 
 require __DIR__ . '/auth.php';

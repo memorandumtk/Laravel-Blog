@@ -23,8 +23,8 @@ class PostFactory extends Factory
         return [
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
-            'title' => fake()->sentence(),
-            'message' => fake()->paragraph(20),
+            'title' => fake()->realText(50, random_int(1, 2)),
+            'message' => implode("<br><br>", fake()->paragraphs(random_int(5, 10))),
             'excerpt' => fake()->realText(),
             'published' => true,
             'published_at' => now(),
@@ -34,7 +34,7 @@ class PostFactory extends Factory
     }
 
     /**
-     * Creating comment too.
+     * Creating a post and comment as well.
      */
     public function configure()
     {

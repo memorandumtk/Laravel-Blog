@@ -28,7 +28,7 @@ export default function FirstMyPost({post, breakpoint}) {
     return (
 
         <article key={post.id}
-                 className="col-span-4 lg:col-span-3 border-l-4 border-t-2 p-4 flex gap-4 items-start justify-between">
+                 className="bg-white col-span-4 lg:col-span-3 border-l-4 border-t-2 p-4 flex gap-4 items-start justify-between">
 
             {/*Image for being in left position*/}
             <div className="grow self-center">

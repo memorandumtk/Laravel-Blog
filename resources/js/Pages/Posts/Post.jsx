@@ -10,7 +10,6 @@ import Avatar from "@/Components/Avatar.jsx";
 import Category from "@/Components/CategoryTag.jsx";
 import BlogImage from "@/Components/BlogImage.jsx";
 import {AiOutlineHeart, AiOutlineLike, AiOutlineStar} from "react-icons/ai";
-
 dayjs.extend(relativeTime);
 
 export default function Post({post}) {
@@ -18,7 +17,7 @@ export default function Post({post}) {
     return (
 
         <article key={post.id}
-                 className="col-span-4 lg:col-span-2 border-l-4 border-t-2 p-4 flex flex-col gap-4 items-start justify-between">
+                 className="bg-white col-span-4 lg:col-span-2 border-l-4 border-t-2 p-4 flex flex-col gap-4 items-start justify-between">
 
             {/*Title section*/}
             <div className="flex items-center gap-x-2 text-xs">

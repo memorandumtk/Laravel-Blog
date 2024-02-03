@@ -35,7 +35,9 @@ class DatabaseSeeder extends Seeder
         $users[] = $kosuke;
         $users[] = $dummy;
 
-        // Delete all images in the directory of 'images'.
+        /**
+         * Delete all images in the directory of 'images'.
+         */
         $folder_path = "storage/app/images";
         // List of name of files inside
         // specified folder
@@ -49,10 +51,12 @@ class DatabaseSeeder extends Seeder
         $images = Image::factory(10)->create();
 
 
-        // Create 3 posts per user.
+        /**
+         * Create 10 posts per user.
+         */
         // After creating a post, there is a operation to make comments.
         foreach ($users as $user) {
-            for ($i = 0; $i < 3; $i++) {
+            for ($i = 0; $i < 10; $i++) {
                 $random = random_int(1, count($images));
                 Post::factory(1)->create([
                     'user_id' => ($user['id']),

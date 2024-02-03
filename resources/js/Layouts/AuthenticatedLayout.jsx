@@ -5,6 +5,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
+import BackGround from "@/Components/BackGround.jsx";
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -12,21 +13,24 @@ export default function Authenticated({ user, header, children }) {
     console.log(usePage())
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+        <div className="min-h-screen">
+
+            {/*make background.*/}
+            <div>
+                <BackGround/>
+            </div>
+
+            <nav className="border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo className="block h-9 w-auto fill-current text-slate-900 rounded-full" />
                                 </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                {/*<NavLink href={route('dashboard')} active={route().current('dashboard')}>*/}
-                                {/*    Dashboard*/}
-                                {/*</NavLink>*/}
                                 <NavLink href={route('posts.index')} active={route().current('posts.index')}>
                                     Posts
                                 </NavLink>
@@ -35,9 +39,6 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                                 <NavLink href={route('posts.create')} active={route().current('posts.create')}>
                                     Compose
-                                </NavLink>
-                                <NavLink href={route('categories.index')} active={route().current('categories.index')}>
-                                    Categories
                                 </NavLink>
                             </div>
                         </div>
@@ -49,7 +50,7 @@ export default function Authenticated({ user, header, children }) {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="text-blue-800 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
 
@@ -71,6 +72,9 @@ export default function Authenticated({ user, header, children }) {
 
                                     <Dropdown.Content>
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        <Dropdown.Link href={route('posts.index')}>All Posts</Dropdown.Link>
+                                        <Dropdown.Link href={route('my-posts.index')}>My Posts</Dropdown.Link>
+                                        <Dropdown.Link href={route('posts.create')}>Compose</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
@@ -113,6 +117,12 @@ export default function Authenticated({ user, header, children }) {
                         <ResponsiveNavLink href={route('posts.index')} active={route().current('posts.index')}>
                             Posts
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('my-posts.index')} active={route().current('my-posts.index')}>
+                            My Posts
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('posts.create')} active={route().current('posts.create')}>
+                            Compose
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
@@ -132,7 +142,7 @@ export default function Authenticated({ user, header, children }) {
             </nav>
 
             {header && (
-                <header className="bg-white shadow">
+                <header className="shadow">
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
                 </header>
             )}

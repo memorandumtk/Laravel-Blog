@@ -8,14 +8,12 @@ import BlogImage from "@/Components/BlogImage.jsx";
 import DetailOfComment from "@/Pages/Detail/DetailOfComment.jsx";
 import DetailBackground from "@/Pages/Detail/DetailBackground.jsx";
 import dayjs from "dayjs";
-import Category from "@/Components/CategoryTag.jsx";
 import LikeButton from "@/Components/LikeButton.jsx";
-import {AiOutlineHeart, AiOutlineLike} from "react-icons/ai";
 import CategoryTag from "@/Components/CategoryTag.jsx";
+import parse from "html-react-parser";
 
 const Detail = ({auth, post, comments}) => {
 
-    console.log((post))
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -55,7 +53,7 @@ const Detail = ({auth, post, comments}) => {
                             </div>
 
                             <p className="mt-6 leading-8 text-gray-700">
-                                {post.message}
+                                {parse(post.message)}
                             </p>
                         </div>
                     </div>

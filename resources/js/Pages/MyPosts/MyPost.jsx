@@ -28,7 +28,7 @@ export default function MyPost({post, breakpoint}) {
     return (
 
         <article key={post.id}
-                 className="col-span-4 lg:col-span-2 border-l-4 border-t-2 p-4 flex flex-col gap-4 items-start justify-between">
+                 className="bg-white col-span-4 lg:col-span-2 border-l-4 border-t-2 p-4 flex flex-col gap-4 items-start justify-between">
 
             {/*Title section*/}
             <div className="flex gap-x-2 items-center text-xs w-full">

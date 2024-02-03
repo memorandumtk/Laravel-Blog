@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\Models\Image;
+use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
 
 class Post extends Model
 {
@@ -51,6 +52,21 @@ class Post extends Model
             ->where('user_id', '<>', $userId)
             ->where('published', '=', true)
             ->latest();
+    }
+
+    /**
+     * @param Builder $query
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * Get posts with 'other users' and 'category', posts being displayed should have been published.
+     */
+    public function scopeOthersWithPagination(Builder $query, int $userId)
+    {
+        return $query->with('user:id,name,blog_name', 'category', 'image')
+            ->withCount('likes')
+            ->where('user_id', '<>', $userId)
+            ->where('published', '=', true)
+            ->latest()
+            ->paginate(10);
     }
 
     /**

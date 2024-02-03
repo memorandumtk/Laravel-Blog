@@ -18,7 +18,7 @@ export default function FirstPost({post}) {
     return (
 
         <article key={post.id}
-                 className="col-span-4 border-l-4 border-t-2 p-4 flex gap-4 items-start justify-between">
+                 className="bg-white col-span-4 border-l-4 border-t-2 p-4 flex gap-4 items-start justify-between">
 
             {/*Content for being in left position*/}
             <div className="flex flex-col gap-4 justify-center h-full">
@@ -49,7 +49,7 @@ export default function FirstPost({post}) {
                 {/*Blog content section*/}
                 <div className="group relative">
                     <Link className={"flex flex-col gap-4"}
-                          href={route('posts.show', post.id)}>{post.title}
+                          href={route('posts.show', post.id)}>
                         <p className={"text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"}>{post.title}</p>
                         <p className="leading-6 text-gray-600">{post.excerpt}</p>
                     </Link>

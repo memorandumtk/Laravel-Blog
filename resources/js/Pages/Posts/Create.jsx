@@ -10,6 +10,7 @@ import TextInput from "@/Components/TextInput.jsx";
 import Header from "@/Components/Header.jsx";
 import SearchBar from "@/Components/SearchBar.jsx";
 import CategorySelect from "@/Components/CategorySelect.jsx";
+import BackGround from "@/Components/BackGround.jsx";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -69,7 +70,8 @@ export default function Create({auth, categories}) {
                     subtitle={"You can write everything you want."}
             />
 
-            <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+            {/*Compose section*/}
+            <div className="bg-white max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
                 <form onSubmit={submit} className="flex flex-col gap-4">
                     <div>
                         <InputLabel htmlFor="title" value="Title of your blog"/>
@@ -156,7 +158,7 @@ export default function Create({auth, categories}) {
                         </div>
 
                         <div>
-                            <PrimaryButton className="bg-indigo-900" disabled={processing}>
+                            <PrimaryButton className="bg-blue-900" disabled={processing}>
                                 {data.published ? 'Post' : 'Save as Draft'}
                             </PrimaryButton>
                         </div>
