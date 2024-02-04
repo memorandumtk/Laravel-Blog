@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from "@inertiajs/react";
+import parse from "html-react-parser";
 
 const Pagination = ({links}) => {
 
@@ -18,12 +19,14 @@ const Pagination = ({links}) => {
                     link.url === null ?
                         (<div
                             className="px-4 py-3 text-sm leading-4 text-gray-400 border rounded"
-                        >{link.label}</div>) :
+                            key={key}
+                        >{parse(link.label)}</div>) :
 
                         (<Link
                             className={getClassName(link.active)}
                             href={link.url}
-                        >{link.label}</Link>)
+                            key={key}
+                        >{parse(link.label)}</Link>)
                 ))}
             </div>
         )
