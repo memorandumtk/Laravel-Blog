@@ -36,7 +36,7 @@ class MyPostController extends Controller
         $queryString = $request->input('search') ? $request->input('search') : null;
         // If URL query string 'draft' is added, search and store the posts based on the condition.
         if ($isDraft) {
-            $myPosts = Post::drafts($userId)->get();
+            $myPosts = Post::drafts($userId);
         } else {
             $myPosts = Post::mineWithPagination($userId, $queryString);
         }

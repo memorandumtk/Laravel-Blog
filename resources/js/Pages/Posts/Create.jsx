@@ -21,8 +21,8 @@ export default function Create({auth, categories}) {
         title: '',
         message: '',
         excerpt: '',
-        category_id: null,
-        published: 0,
+        category_id: 1,
+        published: false,
     });
 
     const [imageFile, setImageFile] = useState(null);
@@ -71,7 +71,7 @@ export default function Create({auth, categories}) {
             />
 
             {/*Compose section*/}
-            <div className="bg-white max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="bg-white max-w-2xl mx-auto p-4 sm:pb-24">
                 <form onSubmit={submit} className="flex flex-col gap-4">
                     <div>
                         <InputLabel htmlFor="title" value="Title of your blog"/>
@@ -84,7 +84,7 @@ export default function Create({auth, categories}) {
                             placeholder="Title"
                             onChange={(e) => setData('title', e.target.value)}
                         />
-                        <InputError message={errors.message} className="mt-2"/>
+                        <InputError message={errors.title} className="mt-2"/>
                     </div>
 
                     <div>
@@ -112,7 +112,7 @@ export default function Create({auth, categories}) {
                             className="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             onChange={e => setData('excerpt', e.target.value)}
                         ></textarea>
-                        <InputError message={errors.message} className=""/>
+                        <InputError message={errors.excerpt} className=""/>
                     </div>
 
                     {/*// For upload an image.*/}
@@ -134,15 +134,16 @@ export default function Create({auth, categories}) {
                                  )}
                                  alt="Current profile photo"/>
                         </div>
-                        <p className="mt-1 text-sm text-gray-500 " id="file_input_help">SVG, PNG, JPG
-                            or GIF (MAX. 10M bytes).</p>
-                        <InputError message={errors.message} className=""/>
+                        <p className="mt-1 text-sm text-gray-500 " id="file_input_help">
+                            SVG, PNG, JPG or GIF (MAX. 10M bytes).
+                        </p>
                     </div>
 
                     <div className="flex mt-4 gap-4 justify-between pr-2 items-center">
                         {/*For select an category*/}
                         <div className="flex-1">
                             <CategorySelect categories={categories} handleCategoryChange={handleCategoryChange}/>
+                            <InputError message={errors.category_id} className=""/>
                         </div>
 
                         {/*Check box for whether the post would be uploaded or not.*/}

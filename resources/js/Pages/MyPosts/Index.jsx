@@ -48,7 +48,7 @@ export default function Index({auth, posts, categories, totalLikes, weekTotalLik
 
             {/*<div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">*/}
             <div
-                className="mx-auto px-6 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 pt-4 sm:pt-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+                className="mx-auto px-6 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 pt-4 sm:pb-24 sm:pt-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
                 {posts.data.map((post, index) => {
                     // if breakpoints is larger than `lg`, it is first post, current page is 1..
                     if (index === 0 && posts.current_page === 1 && breakpoint >= 3) {

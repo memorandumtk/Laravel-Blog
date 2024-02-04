@@ -90,7 +90,7 @@ class PostController extends Controller
         }
 
         $createdPost = $request->user()->posts()->create($validated);
-        return redirect(route('posts.index'));
+        return redirect(route('my-posts.index'));
     }
 
     /**
