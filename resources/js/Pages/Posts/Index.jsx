@@ -8,10 +8,13 @@ import FirstPost from "@/Pages/Posts/FirstPost.jsx";
 import CategoryModal from "@/Components/CategoryModal.jsx";
 import BackGround from "@/Components/BackGround.jsx";
 import Pagination from "@/Components/Pagination.jsx";
+import useBreakpoint from "@/Hooks/BreakpointObserver.js";
 
 const Index = ({auth, categories, postsWithPagination}) => {
 
     console.log(postsWithPagination)
+
+    const breakpoint = useBreakpoint();
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -21,7 +24,7 @@ const Index = ({auth, categories, postsWithPagination}) => {
             <Header title={"All Posts"}
                     subtitle={"You can see any posts whatever you want."}
             >
-                <div className="flex lg:flex-col gap-2">
+                <div className="flex flex-col gap-2 items-center">
                     <div className="h-8 overflow-hidden">
                         <SearchBar isMyPost={false}/>
                     </div>
@@ -37,7 +40,8 @@ const Index = ({auth, categories, postsWithPagination}) => {
                 <div
                     className="mx-auto px-12 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 pt-4 sm:pt-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
                     {postsWithPagination.data.map((post, index) => {
-                        if (index === 0 && postsWithPagination.current_page === 1) {
+                        // if breakpoints is larger than `lg`, it is first post, current page is 1..
+                        if (index === 0 && postsWithPagination.current_page === 1 && breakpoint >= 3) {
                             return (
                                 <FirstPost key={post.id} post={post}/>
                             )

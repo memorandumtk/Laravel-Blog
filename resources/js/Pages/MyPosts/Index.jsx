@@ -24,7 +24,7 @@ export default function Index({auth, posts, categories, totalLikes, weekTotalLik
             <Header title={"Posts of " + auth.user.blog_name}
                     subtitle={"You can see your posts here."}>
 
-                <div className="flex lg:flex-col gap-2 items-center">
+                <div className="flex flex-col gap-2 items-center">
 
                     <div className="h-8 overflow-hidden">
                         <SearchBar isMyPost={true}/>
