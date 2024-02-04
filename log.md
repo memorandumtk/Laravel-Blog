@@ -1,3 +1,15 @@
+### Install
+curl -s "https://laravel.build/blog?with=mysql" | bash
+sail up -d
+sail npm --version
+sail artisan --version
+sail php --version
+sail composer --version
+sail composer require laravel/breeze --dev
+sail php artisan breeze:install react
+sail php artisan migrate
+
+
 ### Version
 kosuke@Kousuke:~/f-answer/blog$ sail npm --version
 10.3.0

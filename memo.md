@@ -1,28 +1,13 @@
-curl -s "https://laravel.build/kosuke-blog?with=mysql" | bash
-
-sail npm --version
-sail artisan --version
-sail php --version
-sail composer --version
-
-
----install---
-curl -s "https://laravel.build/blog?with=mysql" | bash
-sail up -d
-sail npm --version
-sail artisan --version
-sail php --version
-sail composer --version
-sail composer require laravel/breeze --dev
-sail php artisan breeze:install react
-sail php artisan migrate
-
 
 - make model, migration, and resource controller for Posts
-  sail php artisan make:model -mrc Post
+```text
+sail php artisan make:model -mrc Post
+```
 
 - create policy for post
-  sail php artisan make:policy PostPolicy --model=Post
+```text
+sail php artisan make:policy PostPolicy --model=Post
+```
 
 - Create Comment model.
 ```
