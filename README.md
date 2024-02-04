@@ -1,4 +1,4 @@
-# Blog課題_高木 晃介
+# *Blog課題  高木 晃介*
 
 ## 使用した主要フレームワーク・ライブラリ
 
@@ -32,7 +32,7 @@ npm install
 
 ```text
 ./vendor/bin/sail up -d
-./vendor/bin/sail artisan  migrate --seed
+./vendor/bin/sail artisan migrate --seed
 ```
 
 4. viteを起動し、ブラウザで`http://loglhost`にアクセスする。
@@ -48,9 +48,19 @@ Email:dummy@mail.com
 Password:password
 ```
 
+- システムを止める時
+Viteをストップし、sailコマンドでDocker Composeを停止する。
+```text
+./vendor/bin/sail down
+
+// 再度使う予定がない場合は、-vオプションを付けてボリュームごと削除。
+./vendor/bin/sail down -v
+```
+
+
 ---
 
-## *本ブログシステムの機能*
+## ***本ブログシステムの機能***
 
 ### All postsページ、My postsページの共通機能
 - ページネーション
@@ -64,7 +74,7 @@ Password:password
     - 作成日時(エディットされていた場合はアップデート日時)
     - ブログタイトル＆抜粋メッセージ
 
-### All postsページ
+### All postsページ(自分のポスト以外）
 
 - Like数確認機能
   - ブログポストに対するLike数を確認可能。自分がLikeしたブログの表示はハートマークになる

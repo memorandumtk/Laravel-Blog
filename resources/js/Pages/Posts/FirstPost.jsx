@@ -69,7 +69,7 @@ export default function FirstPost({post}) {
             </div>
 
             {/*Image for being in right position*/}
-            <div className="grow">
+            <div className="max-w-64">
                 <BlogImage image={post.image} className="col-span-1"/>
             </div>
         </article>
