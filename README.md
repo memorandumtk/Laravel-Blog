@@ -25,7 +25,7 @@ git clone git@github.com:memorandumtk/final-answer-kosuke-blog.git test
 ```text
 cd test
 composer require laravel/sail --dev
-npm install
+./vendor/bin/sail npm install
 ```
 
 3. sail起動&DBのマイグレートを行い、FakeデータとSampleイメージをシードする。
@@ -38,7 +38,7 @@ npm install
 4. viteを起動し、ブラウザで`http://loglhost`にアクセスする。
 
 ```text
-npm run dev
+./vendor/bin/sail npm run dev
 ```
 
 5. 事前に作成済みの以下のデータでログインを行うか、新規でユーザを登録する。
