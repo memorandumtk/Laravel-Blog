@@ -1,118 +1,66 @@
-# *Blog課題  高木 晃介*
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-## 使用した主要フレームワーク・ライブラリ
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-- Laravel 10
-- Inertia.js
-- Vite
-- React.js
-- Tailwind
+## About Laravel
 
----
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## デプロイ方法
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-1. レポジトリClone
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-```text
-git clone https://github.com/memorandumtk/final-answer-kosuke-blog.git test
-// or
-git clone git@github.com:memorandumtk/final-answer-kosuke-blog.git test
-```
+## Learning Laravel
 
-2. Cloneしたディレクトリに移動し、sailとnpmパッケージをインストール
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-```text
-cd test
-composer require laravel/sail --dev
-./vendor/bin/sail npm install
-```
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-3. sail起動&DBのマイグレートを行い、FakeデータとSampleイメージをシードする。
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-```text
-./vendor/bin/sail up -d
-./vendor/bin/sail artisan migrate --seed
-```
+## Laravel Sponsors
 
-4. viteを起動し、ブラウザで`http://loglhost`にアクセスする。
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-```text
-./vendor/bin/sail npm run dev
-```
+### Premium Partners
 
-5. 事前に作成済みの以下のデータでログインを行うか、新規でユーザを登録する。
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
 
-```text
-Email:dummy@mail.com
-Password:password
-```
+## Contributing
 
-- システムを止める時
-Viteをストップし、sailコマンドでDocker Composeを停止する。
-```text
-./vendor/bin/sail down
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-// 再度使う予定がない場合は、-vオプションを付けてボリュームごと削除。
-./vendor/bin/sail down -v
-```
+## Code of Conduct
 
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
----
+## Security Vulnerabilities
 
-## ***本ブログシステムの機能***
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-### All postsページ、My postsページの共通機能
-- ページネーション
-  - 9つのポストに設定
-- カテゴリ一覧表示
-- テキストによるサーチ機能
-- ブログをクリックすると各詳細ページに移動
-- 各ブログに表示されている情報（左上から）
-    - カテゴリ
-    - Like数
-    - 作成日時(エディットされていた場合はアップデート日時)
-    - ブログタイトル＆抜粋メッセージ
+## License
 
-### All postsページ(自分のポスト以外）
-
-- Like数確認機能
-  - ブログポストに対するLike数を確認可能。自分がLikeしたブログの表示はハートマークになる
-- 各ブログ投稿ユーザ表示機能
-
-### My postsページ
-
-- 各ポストのEdit、Delete機能
-- ドラフト作成、表示機能
-  - ポスト作成ページでドラフトかパブリッシュするかを選べるため、その値に基づきブログポストの表示を切り替える。
-- Like数統計ページ
-  - 最初のポストの隣で、総Like数と最新1週間のLike数を確認可能。
-
-### 各ポストの詳細ページ
-PostsページやMy Postページでブログポストをクリックした際に移動するページ
-- 閲覧できる情報（左上から）
-    - カテゴリ
-    - Like機能
-        - Likeボタンを押すことによってLike、Like取り消しが可能。
-    - 作成日時(エディットされていた場合はアップデート日時)
-    - ブログタイトル＆ブログメッセージボディ&イメージ
-    - コメント
-        - 閲覧中のブログに対するコメントが可能。
-      
-### Composeページ
-
-- タイトル、テキスト、抜粋メッセージ
-    - 入力したテキストを新規ブログポストとして保存する。
-- イメージアップロード
-    - ローカルフォルダからイメージファイルをアップロード可能。何も指定しない場合は`no-image`イメージが表示されるようになる。
-- ブログポストのカテゴリを選択可能。
-- ポスト前にドラフトとしてポストするかパブリッシュするかを選択可能。
-
-### その他
-- auth機能
-  - Breezeを以下のコマンドでインストールし、その機能を流用。
-  - `sail php artisan breeze:install react`
-- Landing pageやページ左上部分へのロゴ表示機能
-- TailwindとReactを組み合わせたレスポンシブデザイン
-- Laravelのシーダー機能を用いた、FactoryとFakerによる初期データ作成。
-- 各モデルに合わせたコントローラーを作成することにより、web.phpファイルのルートをコンパクト化。
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
